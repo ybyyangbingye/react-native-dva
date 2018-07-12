@@ -4,37 +4,28 @@ import { connect } from 'react-redux'
 
 import { Button } from '../components'
 
-import { createAction, NavigationActions } from '../utils'
+import { NavigationActions } from '../utils'
 
-@connect(({ app }) => ({ ...app }))
-class Account extends Component {
+@connect()
+class Home extends Component {
   static navigationOptions = {
-    tabBarLabel: '我的',
+    tabBarLabel: '宝宝圈',
     tabBarIcon: ({ focused, tintColor }) => (
       <Image
         style={[styles.icon, { tintColor: focused ? '#ff2760' : 'gray' }]}
-        source={require('../images/account.png')}
+        source={require('../images/circle.png')}
       />
     ),
   }
 
-  gotoLogin = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'Login' }))
-  }
-
-  logout = () => {
-    this.props.dispatch(createAction('app/logout')())
+  gotoDetail = () => {
+    this.props.dispatch(NavigationActions.navigate({ routeName: 'Detail' }))
   }
 
   render() {
-    const { login } = this.props
     return (
       <View style={styles.container}>
-        {login ? (
-          <Button text="Logout" onPress={this.logout} />
-        ) : (
-          <Button text="Goto Login" onPress={this.gotoLogin} />
-        )}
+        <Button text="Goto Detail success" onPress={this.gotoDetail} />
       </View>
     )
   }
@@ -52,4 +43,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Account
+export default Home

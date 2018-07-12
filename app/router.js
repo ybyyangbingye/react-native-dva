@@ -15,12 +15,16 @@ import { connect } from 'react-redux'
 import Loading from './containers/Loading'
 import Login from './containers/Login'
 import Home from './containers/Home'
+import Circle from './containers/Circle'
+import Milestone from './containers/Milestone'
 import Account from './containers/Account'
 import Detail from './containers/Detail'
 
 const HomeNavigator = createBottomTabNavigator({
   Home: { screen: Home },
-  Account: { screen: Account },
+  Milestone: {screen: Milestone},
+  Circle: { screen: Circle },
+  Account: { screen: Account }
 })
 
 HomeNavigator.navigationOptions = ({ navigation }) => {

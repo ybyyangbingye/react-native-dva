@@ -11,6 +11,8 @@
     "precommit": "yarn format"
   },
   "dependencies": {
+    "antd-mobile": "^2.2.1",
+    "antd-mobile-rn": "^2.2.0",
     "dva-core": "^1.3.0",
     "react": "^16.4.1",
     "react-native": "^0.55.4",
