@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react'
-import { BackHandler, Animated, Easing } from 'react-native'
+import { BackHandler, Animated, Easing, View, Text } from 'react-native'
 import {
   createStackNavigator,
   createBottomTabNavigator,
   NavigationActions,
 } from 'react-navigation'
+import { TabBar, SearchBar } from 'antd-mobile-rn'
 import {
   reduxifyNavigator,
   createReactNavigationReduxMiddleware,
@@ -19,12 +20,14 @@ import Circle from './containers/Circle'
 import Milestone from './containers/Milestone'
 import Account from './containers/Account'
 import Detail from './containers/Detail'
+import Feedback from './containers/Feedback'
+import FeedbackFillin from './containers/FeedbackFillin'
 
 const HomeNavigator = createBottomTabNavigator({
   Home: { screen: Home },
-  Milestone: {screen: Milestone},
+  Milestone: { screen: Milestone },
   Circle: { screen: Circle },
-  Account: { screen: Account }
+  Account: { screen: Account },
 })
 
 HomeNavigator.navigationOptions = ({ navigation }) => {
@@ -39,6 +42,8 @@ const MainNavigator = createStackNavigator(
   {
     HomeNavigator: { screen: HomeNavigator },
     Detail: { screen: Detail },
+    Feedback: { screen: Feedback },
+    FeedbackFillin: { screen: FeedbackFillin },
   },
   {
     headerMode: 'float',
@@ -105,6 +110,13 @@ function getActiveRouteName(navigationState) {
 
 @connect(({ app, router }) => ({ app, router }))
 class Router extends PureComponent {
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      selectedTab: 'redTab',
+    }
+  }
+
   componentWillMount() {
     BackHandler.addEventListener('hardwareBackPress', this.backHandle)
   }
@@ -125,11 +137,61 @@ class Router extends PureComponent {
     return false
   }
 
+  renderContent(pageText: any) {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
+        <SearchBar placeholder="Search" showCancelButton />
+        <Text style={{ margin: 50 }}>{pageText}</Text>
+      </View>
+    )
+  }
+
+  onChangeTab(tabName: any) {
+    this.setState({
+      selectedTab: tabName,
+    })
+  }
+
   render() {
     const { app, dispatch, router } = this.props
     if (app.loading) return <Loading />
 
     return <App dispatch={dispatch} state={router} />
+    // return (<TabBar
+    //   unselectedTintColor="#949494"
+    //   tintColor="#33A3F4"
+    //   barTintColor="#ccc"
+    // >
+    //   <TabBar.Item
+    //     title="Life"
+    //     selected={this.state.selectedTab === 'blueTab'}
+    //     onPress={() => this.onChangeTab('blueTab')}
+    //   >
+    //     {this.renderContent('Life Tab')}
+    //   </TabBar.Item>
+    //   <TabBar.Item
+    //     title="Koubei"
+    //     badge={2}
+    //     selected={this.state.selectedTab === 'redTab'}
+    //     onPress={() => this.onChangeTab('redTab')}
+    //   >
+    //     {this.renderContent('Koubei Tab')}
+    //   </TabBar.Item>
+    //   <TabBar.Item
+    //     title="Friend"
+    //     selected={this.state.selectedTab === 'greenTab'}
+    //     onPress={() => this.onChangeTab('greenTab')}
+    //   >
+    //     {this.renderContent('Friend Tab')}
+    //   </TabBar.Item>
+    //   <TabBar.Item
+    //     title="My"
+    //     selected={this.state.selectedTab === 'yellowTab'}
+    //     onPress={() => this.onChangeTab('yellowTab')}
+    //   >
+    //     {this.renderContent('My Tab')}
+    //   </TabBar.Item>
+    // </TabBar>)
   }
 }
 
