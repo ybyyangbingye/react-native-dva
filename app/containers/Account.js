@@ -6,6 +6,7 @@ import { List, WhiteSpace } from 'antd-mobile-rn'
 // import { Button } from '../components'
 
 import { createAction, NavigationActions } from '../utils'
+import PersonalData from './PersonalData'
 
 const Item = List.Item
 const Brief = Item.Brief
@@ -22,25 +23,16 @@ class Account extends Component {
     ),
   }
 
-  gotoLogin = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'Login' }))
-  }
-
   gotoTarget = target => {
     this.props.dispatch(NavigationActions.navigate({ routeName: target }))
   }
 
-  logout = () => {
-    this.props.dispatch(createAction('app/logout')())
-  }
-
   render() {
-    const { login } = this.props
     const list = [
       {
         leftLabel: '个人资料',
         rightLabel: '',
-        targetPage: 'Feedback',
+        targetPage: 'PersonalData',
         iconUrl: require('../images/AccountData.png'),
       },
       {
@@ -103,6 +95,7 @@ class Account extends Component {
     const listItems = list.map((listItem, index) => (
       <Item
         arrow="horizontal"
+        key={index}
         onClick={() => this.gotoTarget(listItem.targetPage)}
       >
         <View style={styles.listItemText}>
@@ -133,7 +126,7 @@ class Account extends Component {
     ))
 
     const pancelItems = pancel.map((pancelItem, index) => (
-      <View style={styles.pancelItem}>
+      <View style={styles.pancelItem} key={index}>
         <Image source={pancelItem.iconUrl} style={styles.pancelItemIcon} />
         <Text style={styles.pancelItemText}>{pancelItem.pancelItemText}</Text>
       </View>
@@ -179,10 +172,10 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   personalHomePageLeft: {
-    width: '30%',
+    width: '28%',
   },
   personalHomePageRight: {
-    width: '70%',
+    width: '72%',
   },
   personalHomePageLabel: {
     backgroundColor: '#bbb',
@@ -239,8 +232,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   pancelItemIcon: {
-    width: 42,
-    height: 42,
+    width: 32,
+    height: 32,
   },
 
   // 列表样式
