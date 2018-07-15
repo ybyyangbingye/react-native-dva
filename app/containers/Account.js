@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import LinearGradient from 'react-native-linear-gradient'
-import { StyleSheet, View, Image, Text, BVLinearGradient } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  BVLinearGradient,
+  TouchableOpacity,
+} from 'react-native'
 import { connect } from 'react-redux'
 import { List, WhiteSpace } from 'antd-mobile-rn'
 // import { Button } from '../components'
@@ -77,18 +84,22 @@ class Account extends Component {
       {
         pancelItemText: '我收藏的',
         iconUrl: require('../images/AccountCollect.png'),
+        targetPage: 'MyCollection',
       },
       {
         pancelItemText: '我发布的',
         iconUrl: require('../images/AccountRelease.png'),
+        targetPage: 'MyCollection',
       },
       {
         pancelItemText: '我回复的',
         iconUrl: require('../images/AccountReply.png'),
+        targetPage: 'MyCollection',
       },
       {
         pancelItemText: '加入的群组',
         iconUrl: require('../images/account.png'),
+        targetPage: 'MyCollection',
       },
     ]
 
@@ -126,15 +137,24 @@ class Account extends Component {
     ))
 
     const pancelItems = pancel.map((pancelItem, index) => (
-      <View style={styles.pancelItem} key={index}>
-        <Image source={pancelItem.iconUrl} style={styles.pancelItemIcon} />
-        <Text style={styles.pancelItemText}>{pancelItem.pancelItemText}</Text>
+      <View key={index} style={{ width: '25%' }}>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => this.gotoTarget(pancelItem.targetPage)}
+        >
+          <View style={styles.pancelItem}>
+            <Image source={pancelItem.iconUrl} style={styles.pancelItemIcon} />
+            <Text style={styles.pancelItemText}>
+              {pancelItem.pancelItemText}
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     ))
 
     return (
       <View>
-        <LinearGradient colors={['#bbb', '#fff']} style={styles.container}>
+        <LinearGradient colors={['#ccc', '#fff']} style={styles.container}>
           <View style={styles.personalHomePage}>
             <View style={styles.personalHomePageLeft}>
               <Image
@@ -223,7 +243,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
   pancelItem: {
-    width: '25%',
     alignItems: 'center',
   },
   pancelItemText: {

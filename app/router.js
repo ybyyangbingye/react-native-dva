@@ -22,6 +22,8 @@ import Account from './containers/Account'
 import Detail from './containers/Detail'
 import Feedback from './containers/Feedback'
 import FeedbackFillin from './containers/FeedbackFillin'
+import PersonalData from './containers/PersonalData'
+import MyCollection from './containers/MyCollection'
 
 const HomeNavigator = createBottomTabNavigator({
   Home: { screen: Home },
@@ -44,6 +46,8 @@ const MainNavigator = createStackNavigator(
     Detail: { screen: Detail },
     Feedback: { screen: Feedback },
     FeedbackFillin: { screen: FeedbackFillin },
+    PersonalData: { screen: PersonalData },
+    MyCollection: { screen: MyCollection },
   },
   {
     headerMode: 'float',
