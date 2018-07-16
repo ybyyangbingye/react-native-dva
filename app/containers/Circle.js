@@ -13,7 +13,7 @@ class Home extends Component {
     tabBarIcon: ({ focused, tintColor }) => (
       <Image
         style={[styles.icon, { tintColor: focused ? '#ff2760' : 'gray' }]}
-        source={require('../images/circle.png')}
+        source={require('../images/AccountGroup.png')}
       />
     ),
   }
@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   icon: {
-    width: 32,
-    height: 32,
+    width: 30,
+    height: 30,
   },
 })
 

@@ -123,6 +123,36 @@ class MyCollection extends Component {
           '测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据',
         postImg: require('../images/headPortrait.jpeg'),
       },
+      {
+        postName: '我是想顺产的啊，为啥要我剖腹产',
+        postContent:
+          '测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据',
+        postImg: require('../images/headPortrait.jpeg'),
+      },
+      {
+        postName: '我是想顺产的啊，为啥要我剖腹产',
+        postContent:
+          '测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据',
+        postImg: require('../images/headPortrait.jpeg'),
+      },
+      {
+        postName: '我是想顺产的啊，为啥要我剖腹产',
+        postContent:
+          '测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据',
+        postImg: require('../images/headPortrait.jpeg'),
+      },
+      {
+        postName: '我是想顺产的啊，为啥要我剖腹产',
+        postContent:
+          '测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据',
+        postImg: require('../images/headPortrait.jpeg'),
+      },
+      {
+        postName: '我是想顺产的啊，为啥要我剖腹产',
+        postContent:
+          '测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据',
+        postImg: require('../images/headPortrait.jpeg'),
+      }
     ]
 
     const postsList = posts.map((post, index) => (
