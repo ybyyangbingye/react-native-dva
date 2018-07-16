@@ -7,16 +7,16 @@ import {
   Text,
   BVLinearGradient,
   TouchableOpacity,
+  Dimensions,
+  PixelRatio,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { List, WhiteSpace } from 'antd-mobile-rn'
-// import { Button } from '../components'
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
 import { createAction, NavigationActions } from '../utils'
-import PersonalData from './PersonalData'
 
 const Item = List.Item
-const Brief = Item.Brief
 
 @connect(({ app }) => ({ ...app }))
 class Account extends Component {
@@ -35,6 +35,7 @@ class Account extends Component {
   }
 
   render() {
+    const { onScroll = () => {} } = this.props;
     const list = [
       {
         leftLabel: '个人资料',
@@ -88,7 +89,7 @@ class Account extends Component {
       },
       {
         pancelItemText: '我发布的',
-        iconUrl: require('../images/AccountRelease.png'),
+        iconUrl: require('../images/AccountPublish.png'),
         targetPage: 'MyCollection',
       },
       {
@@ -98,7 +99,7 @@ class Account extends Component {
       },
       {
         pancelItemText: '加入的群组',
-        iconUrl: require('../images/account.png'),
+        iconUrl: require('../images/AccountGroup.png'),
         targetPage: 'MyCollection',
       },
     ]
@@ -153,80 +154,110 @@ class Account extends Component {
     ))
 
     return (
-      <View>
-        <LinearGradient colors={['#ccc', '#fff']} style={styles.container}>
-          <View style={styles.personalHomePage}>
-            <View style={styles.personalHomePageLeft}>
-              <Image
-                style={styles.headPortrait}
-                source={require('../images/headPortrait.jpeg')}
-              />
-            </View>
-            <View style={styles.personalHomePageRight}>
-              <View style={styles.phoneNumber}>
-                <Text style={styles.phoneNumberText}>133****6016</Text>
-              </View>
-              <View style={styles.personalHomePageLabel}>
-                <Text style={styles.personalHomePageLabelText}>个人主页</Text>
-              </View>
-            </View>
+      <ParallaxScrollView
+        onScroll={onScroll}
+        headerBackgroundColor="#333"
+        stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
+        parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
+        backgroundSpeed={10}
+        renderBackground={() => (
+          <View key="background">
+            <Image style={{height: PARALLAX_HEADER_HEIGHT,width: window.width}} source={require('../images/AccountBackground.png')}/>
+            <View style={{position: 'absolute',
+              top: 0,
+              width: window.width,
+              backgroundColor: 'rgba(0,0,0,0)',
+              height: 50}}/>
           </View>
-        </LinearGradient>
-        <View style={styles.pancel}>{pancelItems}</View>
-        <View style={styles.container}>
-          <WhiteSpace />
-          <List>{listItems}</List>
-        </View>]
-      </View>
+        )}
+
+        renderForeground={() => (
+          <View key="parallax-header" style={ styles.parallaxHeader }>
+            <Image style={ styles.avatar } source={require('../images/headPortrait.jpeg')}/>
+            <Text style={ styles.sectionSpeakerText }>日华</Text>
+          </View>
+        )}>
+        <View>
+          <View style={styles.pancel}>{pancelItems}</View>
+          <View style={styles.container}>
+            <WhiteSpace />
+            <List>{listItems}</List>
+          </View>
+        </View>
+      </ParallaxScrollView>
+
     )
   }
 }
+const window = Dimensions.get('window')
+
+const AVATAR_SIZE = 120
+const ROW_HEIGHT = 50
+const PARALLAX_HEADER_HEIGHT = 220
+const STICKY_HEADER_HEIGHT = 50
 
 const styles = StyleSheet.create({
-  personalHomePage: {
-    height: 120,
-    display: 'flex',
-    flex: 1,
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-    margin: 20,
-  },
-  personalHomePageLeft: {
-    width: '28%',
-  },
-  personalHomePageRight: {
-    width: '72%',
-  },
-  personalHomePageLabel: {
-    backgroundColor: '#bbb',
-    width: 75,
-    padding: 4,
-    borderRadius: 25,
-    borderWidth: 2,
-    borderColor: '#ccc',
-    marginTop: 10,
-  },
-  personalHomePageLabelText: {
-    color: '#fff',
-    fontSize: 13,
-    textAlign: 'center',
-  },
-  headPortrait: {
-    height: 70,
-    width: 70,
-    borderRadius: 35,
-    borderWidth: 5,
-    borderColor: '#ccc',
-  },
-  phoneNumber: {
-    marginTop: 6,
-  },
-  phoneNumberText: {
-    color: '#fff',
-    fontSize: 18,
-  },
+  // 滚动视差
   container: {
+    flex: 1,
+    backgroundColor: '#f3f4f6',
+  },
+  background: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: window.width,
+    height: PARALLAX_HEADER_HEIGHT
+  },
+  stickySection: {
+    height: STICKY_HEADER_HEIGHT,
+    width: 300,
+    justifyContent: 'flex-end',
+  },
+  stickySectionText: {
+    color: '#fff',
+    fontSize: 20,
+    margin: 10
+  },
+  fixedSection: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+  },
+  fixedSectionText: {
+    color: '#999',
+    fontSize: 20
+  },
+  parallaxHeader: {
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'column',
+    paddingTop: 35
+  },
+  avatar: {
+    width: 120,
     height: 120,
+    marginBottom: 10,
+    borderWidth: 3,
+    borderColor: '#fff',
+    borderRadius: AVATAR_SIZE / 2
+  },
+  sectionSpeakerText: {
+    color: '#fff',
+    fontSize: 24,
+    paddingVertical: 5
+  },
+  row: {
+    overflow: 'hidden',
+    paddingHorizontal: 10,
+    height: ROW_HEIGHT,
+    backgroundColor: '#fff',
+    borderColor: '#ccc',
+    borderBottomWidth: 1,
+    justifyContent: 'center'
+  },
+  rowText: {
+    fontSize: 20
   },
   icon: {
     width: 32,
@@ -251,8 +282,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   pancelItemIcon: {
-    width: 32,
-    height: 32,
+    width: 30,
+    height: 30,
   },
 
   // 列表样式
