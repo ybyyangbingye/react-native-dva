@@ -22,7 +22,8 @@
     "react-native-pull": "^2.0.2",
     "react-navigation": "^2.5.1",
     "react-navigation-redux-helpers": "^2.0.2",
-    "react-redux": "^5.0.7"
+    "react-redux": "^5.0.7",
+    "react-timer-mixin": "^0.13.3"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.4",
