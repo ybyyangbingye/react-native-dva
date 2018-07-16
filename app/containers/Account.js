@@ -12,7 +12,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import { List, WhiteSpace } from 'antd-mobile-rn'
-import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import ParallaxScrollView from 'react-native-parallax-scroll-view'
 
 import { createAction, NavigationActions } from '../utils'
 
@@ -21,17 +21,12 @@ const Item = List.Item
 @connect(({ app }) => ({ ...app }))
 class Account extends Component {
   static navigationOptions = {
-    // tabBarLabel: '我的',
-    tabBarLabel: ({ focused, tintColor }) => <Text style={[styles.tabBarLabel,{tintColor: focused ? '#ff2760' : 'gray'}]}>我的</Text>,
-    tabBarIcon: ({ focused, tintColor }) => (
-      <Image
-        style={[styles.icon, { tintColor: focused ? '#ffb4b8' : 'gray' }]}
-        source={require('../images/account.png')}
-      />
-    ),
+     tabBarLabel: '我的',
+     tabBarIcon:({ focused, tintColor }) => (
+      <Image style={[styles.icon, { tintColor: focused ? '#ffb4b8' : 'gray' }]} source={require('../images/account.png')}/>
+    )
   }
-
-  gotoTarget = target => {
+  gotoTarget = (target) => {
     this.props.dispatch(NavigationActions.navigate({ routeName: target }))
   }
 
@@ -42,95 +37,87 @@ class Account extends Component {
         leftLabel: '个人资料',
         rightLabel: '',
         targetPage: 'PersonalData',
-        iconUrl: require('../images/AccountData.png'),
+        iconUrl: require('../images/AccountData.png')
       },
       {
         leftLabel: '福利社',
         rightLabel: '积分换好礼',
         targetPage: 'Feedback',
-        iconUrl: require('../images/AccountGift.png'),
+        iconUrl: require('../images/AccountGift.png')
       },
       {
         leftLabel: '推荐给好友',
         rightLabel: '领60积分',
         targetPage: 'Feedback',
-        iconUrl: require('../images/AccountRecommend.png'),
+        iconUrl: require('../images/AccountRecommend.png')
       },
       {
         leftLabel: '打印商城',
         rightLabel: '戳我打印宝宝成长记',
         targetPage: 'Feedback',
-        iconUrl: require('../images/AccountPrint.png'),
+        iconUrl: require('../images/AccountPrint.png')
       },
       {
         leftLabel: '我的订单',
         rightLabel: '',
         targetPage: 'Feedback',
-        iconUrl: require('../images/AccountOrder.png'),
+        iconUrl: require('../images/AccountOrder.png')
       },
       {
         leftLabel: '参与活动',
         rightLabel: '',
         targetPage: 'Feedback',
-        iconUrl: require('../images/AccountActivity.png'),
+        iconUrl: require('../images/AccountActivity.png')
       },
       {
         leftLabel: '意见反馈',
         rightLabel: '',
         targetPage: 'Feedback',
-        iconUrl: require('../images/AccountSuggest.png'),
-      },
+        iconUrl: require('../images/AccountSuggest.png')
+      }
     ]
 
     const pancel = [
       {
         pancelItemText: '我收藏的',
         iconUrl: require('../images/AccountCollect.png'),
-        targetPage: 'MyCollection',
+        targetPage: 'MyCollection'
       },
       {
         pancelItemText: '我发布的',
         iconUrl: require('../images/AccountPublish.png'),
-        targetPage: 'MyCollection',
+        targetPage: 'MyCollection'
       },
       {
         pancelItemText: '我回复的',
         iconUrl: require('../images/AccountReply.png'),
-        targetPage: 'MyCollection',
+        targetPage: 'MyCollection'
       },
       {
         pancelItemText: '加入的群组',
         iconUrl: require('../images/AccountGroup.png'),
-        targetPage: 'MyCollection',
-      },
+        targetPage: 'MyCollection'
+      }
     ]
 
     const listItems = list.map((listItem, index) => (
-      <Item
-        arrow="horizontal"
-        key={index}
+      <Item arrow="horizontal" key={index}
         onClick={() => this.gotoTarget(listItem.targetPage)}
       >
         <View style={styles.listItemText}>
           <Image source={listItem.iconUrl} style={styles.listItemIcon} />
           <View
-            style={{
+            style={{ 
               flex: 1,
               display: 'flex',
               justifyContent: 'flex-start',
-              flexDirection: 'row',
-            }}
-          >
+              flexDirection: 'row'}}>
             <View style={{ width: '50%' }}>
               <Text style={styles.listItemTextLeft}>{listItem.leftLabel}</Text>
             </View>
-            {listItem.rightLabel === '' ? (
-              ''
-            ) : (
+            {listItem.rightLabel === '' ? (<View></View>) : (
               <View style={{ width: '50%', paddingTop: 2 }}>
-                <Text style={styles.listItemTextRight}>
-                  {listItem.rightLabel}
-                </Text>
+                <Text style={styles.listItemTextRight}>{listItem.rightLabel}</Text>
               </View>
             )}
           </View>
@@ -146,15 +133,12 @@ class Account extends Component {
         >
           <View style={styles.pancelItem}>
             <Image source={pancelItem.iconUrl} style={styles.pancelItemIcon} />
-            <Text style={styles.pancelItemText}>
-              {pancelItem.pancelItemText}
-            </Text>
+            <Text style={styles.pancelItemText}>{pancelItem.pancelItemText}</Text>
           </View>
         </TouchableOpacity>
       </View>
-    ))
-
-    return (
+      ))
+    return ( 
       <ParallaxScrollView
         onScroll={onScroll}
         headerBackgroundColor="#333"
@@ -164,25 +148,20 @@ class Account extends Component {
         renderBackground={() => (
           <View key="background">
             <Image style={{height: PARALLAX_HEADER_HEIGHT,width: window.width}} source={require('../images/AccountBackground.png')}/>
-            <View style={{position: 'absolute',
-              top: 0,
-              width: window.width,
-              backgroundColor: 'rgba(0,0,0,0)',
-              height: 50}}/>
+            <View style={{position: 'absolute',top: 0, width: window.width,backgroundColor: 'rgba(0,0,0,0)', height: 50}}></View>
           </View>
         )}
-
         renderForeground={() => (
           <View key="parallax-header" style={ styles.parallaxHeader }>
             <Image style={ styles.avatar } source={require('../images/headPortrait.jpeg')}/>
             <Text style={ styles.sectionSpeakerText }>日华</Text>
           </View>
         )}>
-        <View style={{height: 380}}>
+        <View>
           <View style={styles.pancel}>{pancelItems}</View>
           <View style={styles.container}>
             <WhiteSpace />
-            <List style={{height: 380}}>{listItems}</List>
+            <List>{listItems}</List>
           </View>
         </View>
       </ParallaxScrollView>
@@ -195,13 +174,10 @@ const AVATAR_SIZE = 120
 const ROW_HEIGHT = 50
 const PARALLAX_HEADER_HEIGHT = 220
 const STICKY_HEADER_HEIGHT = 50
-
 const styles = StyleSheet.create({
-  // 滚动视差
   container: {
     flex: 1,
     backgroundColor: '#f3f4f6',
-    height: 380,
   },
   background: {
     position: 'absolute',
@@ -262,53 +238,49 @@ const styles = StyleSheet.create({
   },
   icon: {
     width: 30,
-    height: 30,
+    height: 30
   },
-
-  // 面板样式
   pancel: {
     padding: 10,
     backgroundColor: '#fff',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignContent: 'center',
+    alignContent: 'center'
   },
   pancelItem: {
-    alignItems: 'center',
+    alignItems: 'center'
   },
   pancelItemText: {
     fontSize: 12,
     marginTop: 5,
-    marginBottom: 5,
+    marginBottom: 5
   },
   pancelItemIcon: {
     width: 30,
-    height: 30,
+    height: 30
   },
-
-  // 列表样式
   listItemText: {
     display: 'flex',
     justifyContent: 'flex-start',
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   listItemIcon: {
     width: 22,
-    height: 22,
+    height: 22
   },
   listItemTextLeft: {
     fontSize: 14,
     paddingLeft: 10,
-    lineHeight: 22,
+    lineHeight: 22
   },
   listItemTextRight: {
     color: '#bbb',
     fontSize: 12,
     marginRight: 2,
     textAlign: 'right',
-    lineHeight: 22,
-  },
+    lineHeight: 22
+  }
 })
 
 export default Account

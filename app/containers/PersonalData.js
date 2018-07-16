@@ -18,12 +18,10 @@ class PersonalData extends Component {
   constructor(props: any) {
     super(props)
     this.state = {
-      files2: [],
-      http: '0',
-      image: '0',
-      all: '0',
-      clicked: 'none',
-      text: '',
+      avator:'../images/avator.jpg',
+      nickName:'Rhea',
+      gender:'女',
+      address:''
     }
   }
 
@@ -73,11 +71,11 @@ class PersonalData extends Component {
         <WhiteSpace />
         <Item arrow="horizontal" onClick={() => {}}>
           <View style={styles.listItemText}>
-            <View style={{ width: '50%' }}>
+            <View style={{ width: '90%' }}>
               <Text style={styles.listItemTextLeft}>头像</Text>
             </View>
-            <View style={{ width: '50%', paddingTop: 2 }}>
-              <Text style={styles.listItemTextRight}>测试</Text>
+            <View style={{ width: '10%', paddingTop: 2 }}>
+              <Image source={require(${this.state.avator})} style={styles.avator}/>
             </View>
           </View>
         </Item>
@@ -87,7 +85,7 @@ class PersonalData extends Component {
               <Text style={styles.listItemTextLeft}>昵称</Text>
             </View>
             <View style={{ width: '50%', paddingTop: 2 }}>
-              <Text style={styles.listItemTextRight}>日华</Text>
+              <Text style={styles.listItemTextRight}>${this.state.nickName}</Text>
             </View>
           </View>
         </Item>
@@ -97,7 +95,7 @@ class PersonalData extends Component {
               <Text style={styles.listItemTextLeft}>性别</Text>
             </View>
             <View style={{ width: '50%', paddingTop: 2 }}>
-              <Text style={styles.listItemTextRight}>男</Text>
+              <Text style={styles.listItemTextRight}>${this.state.nickName}</Text>
             </View>
           </View>
         </Item>
@@ -113,56 +111,28 @@ class PersonalData extends Component {
           </View>
         </Item>
         <WhiteSpace />
-        <Item arrow="horizontal" onClick={() => {}}>
-          <View style={styles.listItemText}>
-            <View style={{ width: '50%' }}>
-              <Text style={styles.listItemTextLeft}>清除缓存</Text>
-            </View>
-            <View style={{ width: '50%', paddingTop: 2 }}>
-              <Text style={styles.listItemTextRight}>{this.state.http}</Text>
-            </View>
-          </View>
-        </Item>
-        <Item arrow="horizontal" onClick={() => {}}>
-          <View style={styles.listItemText}>
-            <View style={{ width: '50%' }}>
-              <Text style={styles.listItemTextLeft}>消息通知</Text>
-            </View>
-            <View style={{ width: '50%', paddingTop: 2 }}>
-              <Text style={styles.listItemTextRight} />
-            </View>
-          </View>
-        </Item>
         <View style={{ marginTop: 30 }}>
-          <View style={[{ padding: 8 }]}>
+          <View style={{ padding: 8 }}>
             <Button onClick={this.showActionSheet}>showActionSheet</Button>
           </View>
-          <Text style={[{ padding: 8 }]}>
+          <Text style={{ padding: 8 }}>
             clicked button: {this.state.clicked}
           </Text>
-          <View style={[{ padding: 8 }]}>
+          <View style={{ padding: 8 }}>
             <Button onClick={this.showShareActionSheet}>
               showShareActionSheet
             </Button>
           </View>
-          <Text style={[{ padding: 8 }]}>{this.state.text}</Text>
+          <Text style={{ padding: 8 }}>{this.state.text}</Text>
         </View>
-        {login ? (
-          <Button text="退出登录" style={styles.logout} onPress={this.logout} />
-        ) : (
-          <Button text="登录" style={styles.logout} onPress={this.gotoLogin} />
-        )}
       </View>
     )
   }
 
   showActionSheet = () => {
     const BUTTONS = [
-      'Operation1',
-      'Operation2',
-      'Operation3',
-      'Delete',
-      'Cancel',
+      '男',
+      '女'
     ];
     ActionSheet.showActionSheetWithOptions(
       {
@@ -206,7 +176,8 @@ class PersonalData extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+  },
   // 列表样式
   listItemText: {
     display: 'flex',
@@ -216,20 +187,25 @@ const styles = StyleSheet.create({
   listItemTextLeft: {
     fontSize: 14,
     paddingLeft: 10,
-    lineHeight: 22,
+    lineHeight: 40,
   },
   listItemTextRight: {
-    color: '#bbb',
+    color: '#aaa',
     fontSize: 12,
     marginRight: 2,
     textAlign: 'right',
-    lineHeight: 22,
+    lineHeight: 40,
   },
 
   // 退出登录
   logout: {
     marginTop: 25,
   },
+  avator:{
+    width:40,
+    height:40,
+    borderRadius:40,
+  }
 })
 
 export default PersonalData
