@@ -21,10 +21,11 @@ const Item = List.Item
 @connect(({ app }) => ({ ...app }))
 class Account extends Component {
   static navigationOptions = {
-    tabBarLabel: '我的',
+    // tabBarLabel: '我的',
+    tabBarLabel: ({ focused, tintColor }) => <Text style={[styles.tabBarLabel,{tintColor: focused ? '#ff2760' : 'gray'}]}>我的</Text>,
     tabBarIcon: ({ focused, tintColor }) => (
       <Image
-        style={[styles.icon, { tintColor: focused ? '#ff2760' : 'gray' }]}
+        style={[styles.icon, { tintColor: focused ? '#ffb4b8' : 'gray' }]}
         source={require('../images/account.png')}
       />
     ),
@@ -65,7 +66,7 @@ class Account extends Component {
         leftLabel: '我的订单',
         rightLabel: '',
         targetPage: 'Feedback',
-        iconUrl: require('../images/AccountMoney.png'),
+        iconUrl: require('../images/AccountOrder.png'),
       },
       {
         leftLabel: '参与活动',
@@ -177,15 +178,14 @@ class Account extends Component {
             <Text style={ styles.sectionSpeakerText }>日华</Text>
           </View>
         )}>
-        <View>
+        <View style={{height: 380}}>
           <View style={styles.pancel}>{pancelItems}</View>
           <View style={styles.container}>
             <WhiteSpace />
-            <List>{listItems}</List>
+            <List style={{height: 380}}>{listItems}</List>
           </View>
         </View>
       </ParallaxScrollView>
-
     )
   }
 }
@@ -201,6 +201,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f3f4f6',
+    height: 380,
   },
   background: {
     position: 'absolute',
@@ -260,8 +261,8 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   icon: {
-    width: 32,
-    height: 32,
+    width: 30,
+    height: 30,
   },
 
   // 面板样式

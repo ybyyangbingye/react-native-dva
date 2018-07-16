@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image, Text, NativeModules } from 'react-native'
+import { StyleSheet, View, Image, Text, NativeModules, Platform } from 'react-native'
 import { connect } from 'react-redux'
-import { List, WhiteSpace, ImagePicker } from 'antd-mobile-rn'
+import { List, WhiteSpace, ImagePicker, ActionSheet } from 'antd-mobile-rn'
 import { Button } from '../components'
 import { createAction, NavigationActions } from '../utils'
 
@@ -9,6 +9,7 @@ const Item = List.Item
 const native = NativeModules.HttpCache
 
 @connect()
+
 class PersonalData extends Component {
   static navigationOptions = {
     tabBarLabel: '个人资料',
@@ -21,6 +22,8 @@ class PersonalData extends Component {
       http: '0',
       image: '0',
       all: '0',
+      clicked: 'none',
+      text: '',
     }
   }
 
@@ -50,6 +53,8 @@ class PersonalData extends Component {
         all: native.getImageCacheSize + native.getHttpCacheSize,
       })
   }
+
+
 
   // async clearCache(){
   //   try {
@@ -128,6 +133,20 @@ class PersonalData extends Component {
             </View>
           </View>
         </Item>
+        <View style={{ marginTop: 30 }}>
+          <View style={[{ padding: 8 }]}>
+            <Button onClick={this.showActionSheet}>showActionSheet</Button>
+          </View>
+          <Text style={[{ padding: 8 }]}>
+            clicked button: {this.state.clicked}
+          </Text>
+          <View style={[{ padding: 8 }]}>
+            <Button onClick={this.showShareActionSheet}>
+              showShareActionSheet
+            </Button>
+          </View>
+          <Text style={[{ padding: 8 }]}>{this.state.text}</Text>
+        </View>
         {login ? (
           <Button text="退出登录" style={styles.logout} onPress={this.logout} />
         ) : (
@@ -135,6 +154,54 @@ class PersonalData extends Component {
         )}
       </View>
     )
+  }
+
+  showActionSheet = () => {
+    const BUTTONS = [
+      'Operation1',
+      'Operation2',
+      'Operation3',
+      'Delete',
+      'Cancel',
+    ];
+    ActionSheet.showActionSheetWithOptions(
+      {
+        title: 'Title',
+        message: 'Description',
+        options: BUTTONS,
+        cancelButtonIndex: 4,
+        destructiveButtonIndex: 3,
+      },
+      (buttonIndex: any) => {
+        this.setState({ clicked: BUTTONS[buttonIndex] });
+      },
+    );
+  }
+  showShareActionSheet = () => {
+    const opts: any = {
+      message: 'Message to go with the shared url',
+      title: 'Share Actionsheet',
+    };
+
+    if (Platform.OS === 'ios') {
+      opts.url = 'https://www.alipay.com/';
+      opts.tintColor = '#ff0000';
+      opts.excludedActivityTypes = ['com.apple.UIKit.activity.PostToTwitter'];
+    }
+
+    ActionSheet.showShareActionSheetWithOptions(
+      opts,
+      (error: any) => alert(error),
+      (success: any, method: any) => {
+        let text;
+        if (success) {
+          text = `Shared with ${method}`;
+        } else {
+          text = 'Did not share';
+        }
+        this.setState({ text });
+      },
+    );
   }
 }
 

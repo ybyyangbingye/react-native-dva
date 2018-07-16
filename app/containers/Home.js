@@ -9,12 +9,12 @@ import { NavigationActions } from '../utils'
 @connect()
 class Home extends Component {
   static navigationOptions = {
-    // tabBarLabel: '时光机',
-    tabBarLabel: () => <Text style={styles.text} />,
+    // tabBarLabel: ({ focused, tintColor }) => <Text style={[styles.tabBarLabel,{tintColor: focused ? '#ff2760' : 'gray'}]}>时光机</Text>,
+    tabBarLabel: '时光机',
     tabBarIcon: ({ focused, tintColor }) => (
       <Image
         style={[styles.icon, { tintColor: focused ? '#ff2760' : 'gray' }]}
-        source={require('../images/time.png')}
+        source={require('../images/timeMachine.png')}
       />
     ),
   }
@@ -39,12 +39,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   icon: {
-    width: 32,
-    height: 32,
+    width: 30,
+    height: 30,
     color: '#ff2760',
   },
-  text: {
-    color: '#ff2760',
+  tabBarLabel: {
+    fontSize: 10,
   },
 })
 
