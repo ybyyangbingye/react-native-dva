@@ -8,16 +8,6 @@ import { NavigationActions } from '../utils'
 
 @connect()
 class Home extends Component {
-  static navigationOptions = {
-    tabBarLabel: '里程碑',
-    tabBarIcon: ({ focused, tintColor }) => (
-      <Image
-        style={[styles.icon, { tintColor: focused ? '#ff2760' : 'gray' }]}
-        source={require('../images/notes.png')}
-      />
-    ),
-  }
-
   gotoDetail = () => {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'Detail' }))
   }

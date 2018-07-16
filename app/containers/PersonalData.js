@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image, Text, NativeModules, Platform } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  NativeModules,
+  Platform,
+} from 'react-native'
 import { connect } from 'react-redux'
 import { List, WhiteSpace, ImagePicker, ActionSheet } from 'antd-mobile-rn'
 import { Button } from '../components'
@@ -9,7 +16,6 @@ const Item = List.Item
 const native = NativeModules.HttpCache
 
 @connect()
-
 class PersonalData extends Component {
   static navigationOptions = {
     tabBarLabel: '个人资料',
@@ -18,10 +24,10 @@ class PersonalData extends Component {
   constructor(props: any) {
     super(props)
     this.state = {
-      avator:'../images/avator.jpg',
-      nickName:'Rhea',
-      gender:'女',
-      address:''
+      avator: '../images/avator.jpg',
+      nickName: 'Rhea',
+      gender: '女',
+      address: '',
     }
   }
 
@@ -52,8 +58,6 @@ class PersonalData extends Component {
       })
   }
 
-
-
   // async clearCache(){
   //   try {
   //     await httpCache.clear();
@@ -75,7 +79,10 @@ class PersonalData extends Component {
               <Text style={styles.listItemTextLeft}>头像</Text>
             </View>
             <View style={{ width: '10%', paddingTop: 2 }}>
-              <Image source={require(${this.state.avator})} style={styles.avator}/>
+              <Image
+                source={require('../images/avator.jpg')}
+                style={styles.avator}
+              />
             </View>
           </View>
         </Item>
@@ -85,7 +92,9 @@ class PersonalData extends Component {
               <Text style={styles.listItemTextLeft}>昵称</Text>
             </View>
             <View style={{ width: '50%', paddingTop: 2 }}>
-              <Text style={styles.listItemTextRight}>${this.state.nickName}</Text>
+              <Text style={styles.listItemTextRight}>
+                ${this.state.nickName}
+              </Text>
             </View>
           </View>
         </Item>
@@ -95,7 +104,9 @@ class PersonalData extends Component {
               <Text style={styles.listItemTextLeft}>性别</Text>
             </View>
             <View style={{ width: '50%', paddingTop: 2 }}>
-              <Text style={styles.listItemTextRight}>${this.state.nickName}</Text>
+              <Text style={styles.listItemTextRight}>
+                ${this.state.nickName}
+              </Text>
             </View>
           </View>
         </Item>
@@ -130,10 +141,7 @@ class PersonalData extends Component {
   }
 
   showActionSheet = () => {
-    const BUTTONS = [
-      '男',
-      '女'
-    ];
+    const BUTTONS = ['男', '女']
     ActionSheet.showActionSheetWithOptions(
       {
         title: 'Title',
@@ -143,41 +151,41 @@ class PersonalData extends Component {
         destructiveButtonIndex: 3,
       },
       (buttonIndex: any) => {
-        this.setState({ clicked: BUTTONS[buttonIndex] });
-      },
-    );
+        this.setState({ clicked: BUTTONS[buttonIndex] })
+      }
+    )
   }
+
   showShareActionSheet = () => {
     const opts: any = {
       message: 'Message to go with the shared url',
       title: 'Share Actionsheet',
-    };
+    }
 
     if (Platform.OS === 'ios') {
-      opts.url = 'https://www.alipay.com/';
-      opts.tintColor = '#ff0000';
-      opts.excludedActivityTypes = ['com.apple.UIKit.activity.PostToTwitter'];
+      opts.url = 'https://www.alipay.com/'
+      opts.tintColor = '#ff0000'
+      opts.excludedActivityTypes = ['com.apple.UIKit.activity.PostToTwitter']
     }
 
     ActionSheet.showShareActionSheetWithOptions(
       opts,
       (error: any) => alert(error),
       (success: any, method: any) => {
-        let text;
+        let text
         if (success) {
-          text = `Shared with ${method}`;
+          text = `Shared with ${method}`
         } else {
-          text = 'Did not share';
+          text = 'Did not share'
         }
-        this.setState({ text });
-      },
-    );
+        this.setState({ text })
+      }
+    )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-  },
+  container: {},
   // 列表样式
   listItemText: {
     display: 'flex',
@@ -201,11 +209,11 @@ const styles = StyleSheet.create({
   logout: {
     marginTop: 25,
   },
-  avator:{
-    width:40,
-    height:40,
-    borderRadius:40,
-  }
+  avator: {
+    width: 40,
+    height: 40,
+    borderRadius: 40,
+  },
 })
 
 export default PersonalData
