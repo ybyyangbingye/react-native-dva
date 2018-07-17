@@ -110,6 +110,8 @@ class Feedback extends Component {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    flex: 1,
+    backgroundColor: '#f3f4f6',
   },
   feedbackBackground: {
     margin: 0,

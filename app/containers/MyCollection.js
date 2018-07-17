@@ -182,8 +182,8 @@ class MyCollection extends Component {
         <Tabs
           tabs={tabs}
           initialPage={0}
-          tabBarActiveTextColor="#ff2760"
-          tabBarUnderlineStyle={{ backgroundColor: '#ff2760' }}
+          tabBarActiveTextColor="#cc7073"
+          tabBarUnderlineStyle={{ backgroundColor: '#cc7073' }}
         >
           <ScrollView>
             <PullView
@@ -296,12 +296,12 @@ const styles = StyleSheet.create({
   },
   gotoButton: {
     borderWidth: 1,
-    borderColor: '#ff2760',
+    borderColor: '#cc7073',
     borderRadius: 15,
     lineHeight: 20,
     paddingVertical: 5,
     paddingHorizontal: 15,
-    color: '#ff2760',
+    color: '#cc7073',
     marginTop: 15,
   },
 
@@ -318,7 +318,7 @@ const styles = StyleSheet.create({
   },
   postName: {
     borderLeftWidth: 3,
-    borderColor: '#ff2760',
+    borderColor: '#cc7073',
   },
   postNameText: {
     marginLeft: 10,

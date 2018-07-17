@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image, Text, NativeModules, Platform } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  NativeModules,
+  Platform,
+} from 'react-native'
 import { connect } from 'react-redux'
 import { List, WhiteSpace, ImagePicker,InputItem} from 'antd-mobile-rn'
 import { Button } from '../components'
@@ -11,7 +18,6 @@ const native = NativeModules.HttpCache
 const options=['男','女','取消']
 
 @connect()
-
 class PersonalData extends Component {
   static navigationOptions = {
     tabBarLabel: '个人资料',
@@ -125,8 +131,7 @@ class PersonalData extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-  },
+  container: {},
   // 列表样式
   listItemText: {
     display: 'flex',
@@ -150,11 +155,11 @@ const styles = StyleSheet.create({
   logout: {
     marginTop: 25,
   },
-  avator:{
-    width:40,
-    height:40,
-    borderRadius:40,
-  }
+  avator: {
+    width: 40,
+    height: 40,
+    borderRadius: 40,
+  },
 })
 
 export default PersonalData

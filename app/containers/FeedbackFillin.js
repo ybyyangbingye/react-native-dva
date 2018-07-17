@@ -16,7 +16,7 @@ class FeedbackFillin extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text style={styles.titleText}>反馈内容</Text>
         <View style={styles.feedbackTextareaItem}>
           <TextareaItem
@@ -45,6 +45,10 @@ class FeedbackFillin extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f3f4f6',
+  },
   titleText: {
     padding: 10,
   },

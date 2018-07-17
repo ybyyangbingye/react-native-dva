@@ -1,5 +1,13 @@
 import React, { PureComponent } from 'react'
-import { BackHandler, Animated, Easing, View, Text } from 'react-native'
+import {
+  BackHandler,
+  Animated,
+  Easing,
+  View,
+  Text,
+  Image,
+  StyleSheet,
+} from 'react-native'
 import {
   createStackNavigator,
   createBottomTabNavigator,
@@ -25,12 +33,77 @@ import FeedbackFillin from './containers/FeedbackFillin'
 import PersonalData from './containers/PersonalData'
 import MyCollection from './containers/MyCollection'
 
-const HomeNavigator = createBottomTabNavigator({
-  Home: { screen: Home },
-  Milestone: { screen: Milestone },
-  Circle: { screen: Circle },
-  Account: { screen: Account },
-})
+const HomeNavigator = createBottomTabNavigator(
+  {
+    Home: {
+      screen: Home,
+      navigationOptions: {
+        tabBarPosition: 'bottom',
+        showLabel: false,
+        tabBarLabel: '时光机',
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Image
+            style={[styles.icon, { tintColor: focused ? tintColor : '#ababab' }]}
+            source={require('./images/timeMachine.png')}
+          />
+        ),
+      },
+    },
+    Milestone: {
+      screen: Milestone,
+      navigationOptions: {
+        tabBarPosition: 'bottom',
+        showLabel: false,
+        tabBarLabel: '里程碑',
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Image
+            style={[styles.icon, { tintColor: focused ? tintColor : '#ababab' }]}
+            source={require('./images/notes.png')}
+          />
+        ),
+      },
+    },
+    Circle: {
+      screen: Circle,
+      navigationOptions: {
+        tabBarPosition: 'bottom',
+        showLabel: false,
+        tabBarLabel: '宝宝圈',
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Image
+            style={[styles.icon, { tintColor: focused ? tintColor : '#ababab' }]}
+            source={require('./images/AccountGroup2.png')}
+          />
+        ),
+      },
+    },
+    Account: {
+      screen: Account,
+      navigationOptions: {
+        tabBarPosition: 'bottom',
+        showLabel: false,
+        tabBarLabel: '我的',
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Image
+            style={[styles.icon, { tintColor: focused ? tintColor : '#ababab' }]}
+            source={require('./images/account.png')}
+          />
+        ),
+      },
+    },
+  },
+  {
+    tabBarOptions: {
+      activeTintColor: '#cc7073',
+      inactiveTintColor: '#999',
+      style: {
+        borderTopColor: '#ebebeb',
+        borderTopWidth: 1,
+        backgroundColor: 'white',
+      },
+    },
+  }
+)
 
 HomeNavigator.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index]
@@ -42,7 +115,14 @@ HomeNavigator.navigationOptions = ({ navigation }) => {
 
 const MainNavigator = createStackNavigator(
   {
-    HomeNavigator: { screen: HomeNavigator },
+    HomeNavigator: {
+      screen: HomeNavigator,
+      navigationOptions: {
+        headerTransparent: true,
+        headerStyle: { borderBottomColor: 'rgba(0,0,0,0)' },
+        headerTitleStyle: { color: 'rgba(0,0,0,0)' },
+      },
+    },
     Detail: { screen: Detail },
     Feedback: { screen: Feedback },
     FeedbackFillin: { screen: FeedbackFillin },
@@ -64,6 +144,11 @@ const AppNavigator = createStackNavigator(
     mode: 'modal',
     navigationOptions: {
       gesturesEnabled: false,
+      header: {
+        titleStyle: {
+          color: '#700',
+        },
+      },
     },
     transitionConfig: () => ({
       transitionSpec: {
@@ -198,5 +283,10 @@ class Router extends PureComponent {
     // </TabBar>)
   }
 }
-
+const styles = StyleSheet.create({
+  icon: {
+    width: 28,
+    height: 28,
+  },
+})
 export default Router

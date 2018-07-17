@@ -8,17 +8,6 @@ import { NavigationActions } from '../utils'
 
 @connect()
 class Home extends Component {
-  static navigationOptions = {
-    // tabBarLabel: ({ focused, tintColor }) => <Text style={[styles.tabBarLabel,{tintColor: focused ? '#ff2760' : 'gray'}]}>时光机</Text>,
-    tabBarLabel: '时光机',
-    tabBarIcon: ({ focused, tintColor }) => (
-      <Image
-        style={[styles.icon, { tintColor: focused ? '#ff2760' : 'gray' }]}
-        source={require('../images/timeMachine.png')}
-      />
-    ),
-  }
-
   gotoDetail = () => {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'Detail' }))
   }
