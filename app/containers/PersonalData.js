@@ -81,7 +81,7 @@ class PersonalData extends Component {
               <Text style={styles.listItemTextLeft}>头像</Text>
             </View>
             <View style={{ width: '10%', paddingTop: 2 }}>
-              <Image source={require('../images/avator.jpg')} style={styles.avator}/>
+              <Image source={this.state.avator} style={styles.avator}/>
             </View>
           </View>
         </Item>
