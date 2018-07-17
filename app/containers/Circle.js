@@ -8,18 +8,17 @@ import {
   ScrollView,
   Text,
   TextInput,
-  Picker,
-  DatePicker,
+  TouchableOpacity,
 } from 'react-native'
 import {
   connect
 } from 'react-redux'
 
 import {
-  List,
   Radio,
   WhiteSpace,
-  Calendar,
+  List,
+  InputItem,
 } from 'antd-mobile-rn'
 import {
   Button
@@ -28,43 +27,80 @@ import {
 import {
   NavigationActions
 } from '../utils'
-import zhCN from 'antd-mobile/lib/calendar/locale/zh_CN';
 
+import ActionSheet from 'react-native-actionsheet'
+import DateTimePicker from 'react-native-modal-datetime-picker';
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 
-const RadioItem = Radio.RadioItem
+// const RadioItem = Radio.Item
+const Item = List.Item
+
+const options = ['妈妈','爸爸','取消']
+
+var radio_props = [
+  {label: '男', value: 0 },
+  {label: '女', value: 1 }
+];
 
 @connect()
-class BasicRadioExample extends React.Component < any, any > {
+
+class DateTimePickerTester extends Component {
   state = {
-    identity: '',
+    isDateTimePickerVisible: false,
+    date: '点击填写'
+  };
+
+  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+
+  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+
+  _handleDatePicked = (date) => {
+    console.log(date)
+    this.setState({
+      date: date.toLocaleDateString(),
+    })
+    console.log('A date has been picked: ', date);
+    this._hideDateTimePicker();
+  };
+
+  render () {
+    return (
+      <View style={{ flex: 1 }}>
+        <TouchableOpacity onPress={this._showDateTimePicker} >
+          <Text style={{ textAlign: 'right' }}>{this.state.date}</Text>
+        </TouchableOpacity>
+        <DateTimePicker
+          isVisible={this.state.isDateTimePickerVisible}
+          onConfirm={this._handleDatePicked}
+          onCancel={this._hideDateTimePicker}
+        />
+      </View>
+    );
   }
 
+}
+
+class RadioButtonProject extends Component {
+   constructor(props) {
+    super(props)
+    this.state = {
+      gender:1,
+    }
+  }
   render() {
     return (
-      <View style={styles.userInput}>
-        <RadioItem
-          defaultChecked="true"
-          onChange={(event: any) => {
-            if (event.target.checked) {
-              this.setState({ identity: 1 })
-            }
-          }}
-          style={{ color: '#000' }}
-        >
-          妈妈
-        </RadioItem>
-        <RadioItem
-          defaultChecked="true"
-          onChange={(event: any) => {
-            if (event.target.checked) {
-              this.setState({ identity: 2 })
-            }
-          }}
-        >
-          爸爸
-        </RadioItem>
-      </View>
-    )
+      <RadioForm
+        radio_props={radio_props}
+        initial={0}
+        formHorizontal={true}
+        labelHorizontal={true}
+        buttonColor={'#2196f3'}
+        animation={true}
+        buttonSize={10}
+        labelStyle={{fontSize: 14, color: '#aaa', marginRight: 10,}}
+        onPress={(value) => {this.setState({gender:value})}}
+      />
+    );
   }
 }
 
@@ -87,120 +123,94 @@ class Home extends Component {
     this.state = {
       babyName: '',
       babyBirth: '',
-      babySex: '',
-      identity: 1,
+      identity: '妈妈',
+      gender:'女',
     }
   }
 
-
-  renderBtn(zh) {
-    return (
-      <List.Item arrow="horizontal"
-        onClick={() => {
-          document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
-          this.setState({
-            show: true,
-          });
-        }}
-      >
-        {zh}
-      </List.Item>
-    );
+  showActionSheet = () => {
+    this.ActionSheet.show();
   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.promptTitle}>填写资料</Text>
           <Text style={styles.promptText}>花一分钟填写您的资料</Text>
-          <Text style={styles.promptText}>我们可以给您定制专属的内容</Text>
-          <Image
-            style={styles.loginImage}
-            source={require('../images/head.jpg')}
-          />
-          <Image
-            style={styles.cameraImage}
-            source={require('../images/camera.png')}
-          />
+          <Text style={styles.promptText}>我们可以给您定制专属的内容</Text>         
+          <View style={styles.headImage}>
+            <Image
+              style={styles.loginImage}
+              source={require('../images/head.jpg')}
+            />
+            <Image
+              style={styles.cameraImage}
+              source={require('../images/camera.png')}
+            />            
+          </View>
           <Text style={styles.promptChange}>修改头像</Text>
         </View>
         <View style={styles.main}>
-          <View style={styles.inputItem}>
-            <Text style={styles.label}>宝宝小名</Text>
-            <TextInput
-              style={styles.userInput}
-              placeHolder="点击填写"
-              placeholderTextColor="#000"
-              underlineColorAndroid="transparent"
-            />
-          </View>
-          <View style={styles.inputItem}>
-            <Text style={styles.label}>生日</Text>
-            <TextInput
-              style={styles.userInput}
-              placeHolder="点击填写"
-              placeholderTextColor="#000"
-              underlineColorAndroid="transparent"
-            />
-          </View>
-          <View style={styles.inputItem}>
-            <Text style={styles.label}>性别</Text>
-            <RadioItem
-              defaultChecked="true"
-              checked={this.state.babySex === 1}
-              onChange={(event: any) => {
-                if (event.target.checked) {
-                  this.setState({ babySex: 1 })
-                }
-              }}
-              style={styles.userRadio}
-            >
-              男
-            </RadioItem>
-            <RadioItem
-              checked={this.state.babySex === 2}
-              onChange={(event: any) => {
-                if (event.target.checked) {
-                  this.setState({ babySex: 2 })
-                }
-              }}
-              style={styles.userRadio}
-            >
-              女
-            </RadioItem>
-          </View>
-          <View style={styles.inputItem}>
-            <Text style={styles.label}>我是宝宝的</Text>
-            <RadioItem
-              defaultChecked="true"
-              checked={this.state.identity === 1}
-              onChange={(event: any) => {
-                if (event.target.checked) {
-                  this.setState({ identity: 1 })
-                }
-              }}
-              style={styles.userRadio}
-            >
-              妈妈
-            </RadioItem>
-            <RadioItem
-              checked={this.state.identity === 2}
-              onChange={(event: any) => {
-                if (event.target.checked) {
-                  this.setState({ identity: 2 })
-                }
-              }}
-              style={styles.userRadio}
-            >
-              爸爸
-            </RadioItem>
-          </View>
 
-          <List className="input-list" style={{ backgroundColor: 'white' }}>
-            <Text style={styles.label}>宝宝小名</Text>
-            {this.renderBtn('选择日期区间')}
-          </List>
+          <Item arrow="horizontal">
+            <View style={styles.listItemText}>
+              <View style={{ width: '50%' }}>
+                <Text style={styles.listItemTextLeft}>宝宝小名</Text>
+              </View>
+              <View style={{ width: '50%', paddingTop: 2 }}>
+                <InputItem style={{borderBottomWidth:0}} 
+                  placeholder='点击填写'
+                  ></InputItem>
+              </View>
+            </View>
+          </Item>
+
+          <Item arrow="horizontal">
+            <View style={styles.listItemText}>
+              <View style={{ width: '50%' }}>
+                <Text style={styles.listItemTextLeft}>生日</Text>
+              </View>
+              <View style={{ width: '50%', paddingTop: 2, }}>
+                <DateTimePickerTester />
+              </View>
+            </View>
+          </Item>
+          <WhiteSpace />
+
+          <Item>
+            <View style={styles.listItemText}>
+              <View style={{ width: '50%' }}>
+                <Text style={styles.listItemTextLeft}>性别</Text>
+              </View>
+              <View style={{ width: '50%', paddingTop: 2,  alignItems: 'flex-end', }}>
+                <RadioButtonProject style={styles.listItemTextRight} />
+              </View>
+            </View>
+          </Item>
+          <WhiteSpace />
+
+          <Item arrow="horizontal" onClick={this.showActionSheet}>
+            <View style={styles.listItemText}>
+              <View style={{ width: '50%' }}>
+                <Text style={styles.listItemTextLeft}>我是宝宝的</Text>
+              </View>
+              <View style={{ width: '50%', paddingTop: 2 }}>
+                <Text style={styles.listItemTextRight}>{this.state.identity}</Text>
+                <ActionSheet ref={o=> this.ActionSheet = o}
+                  options={options}
+                  cancelButtonIndex={2}
+                  onPress = { (index) => {
+                    if(index<2){
+                       this.setState({
+                        identity:options[index]
+                      })
+                    }
+                }}/>
+              </View>
+            </View>
+          </Item>
+          <WhiteSpace />
 
         </View>
         <View style={styles.bottom}>
@@ -208,7 +218,7 @@ class Home extends Component {
             开启成长之旅
           </Button>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -222,31 +232,27 @@ const styles = StyleSheet.create({
     flex: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 300,
+    height: 220,
     position: 'relative',
   },
-  backgroundImage: {
-    backgroundColor: 'green',
-    width: null,
-    height: null,
-    // 设置图片填充模式
-    resizeMode: 'stretch',
+  headImage: {
+    position: 'relative',
   },
   icon: {
     width: 30,
     height: 30,
   },
   promptTitle: {
-    fontSize: 28,
+    fontSize: 22,
     color: 'red',
-    marginBottom: 10,
+    marginBottom: 6,
   },
   promptText: {
-    fontSize: 20,
+    fontSize: 16,
     color: 'red',
   },
   loginImage: {
-    marginTop: 10,
+    marginTop: 6,
     width: 100,
     height: 100,
     borderRadius: 50,
@@ -257,31 +263,36 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'red',
     position: 'absolute',
-    bottom: 10,
-    right: 10,
+    bottom: 0,
+    right: 0,
   },
   promptChange: {
-    fontSize: 18,
+    fontSize: 14,
     color: '#666',
   },
   main: {
     flex: 1,
-    height: 300,
+    height: 200,
     margin: 20,
   },
-  inputItem: {
+  // 列表样式
+  listItemText: {
+    display: 'flex',
+    justifyContent: 'flex-start',
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderTopColor: '#FFF',
-    borderLeftColor: '#FFF',
-    borderRightColor: '#FFF',
-    borderBottomColor: '#444',
-    borderWidth: 1,
-    height: 60,
+  },
+  listItemTextLeft: {
+    fontSize: 14,
+    paddingLeft: 10,
+  },
+  listItemTextRight: {
+    color: '#aaa',
+    fontSize: 14,
+    marginRight: 2,
+    textAlign: 'right',
   },
   label: {
-    fontSize: 20,
+    fontSize: 16,
     color: '#222',
   },
   userInput: {
@@ -294,20 +305,19 @@ const styles = StyleSheet.create({
     borderBottomColor: '#fff',
   },
   bottom: {
-    height: 100,
+    height: 60,
     flex: 0,
     justifyContent: 'center',
     alignItems: 'center',
   },
   startTravel: {
     backgroundColor: 'red',
-    color: '#fff',
-    width: 300,
-    height: 50,
+    width: 200,
+    height: 40,
     borderRadius: 20,
   },
   startTravelText: {
-    fontSize: 20,
+    fontSize: 18,
     color: '#fff',
   },
 })
