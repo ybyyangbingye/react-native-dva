@@ -8,14 +8,29 @@ import {
   Platform,
 } from 'react-native'
 import { connect } from 'react-redux'
-import { List, WhiteSpace, ImagePicker,InputItem} from 'antd-mobile-rn'
+import { List, WhiteSpace,InputItem} from 'antd-mobile-rn'
 import { Button } from '../components'
 import { createAction, NavigationActions } from '../utils'
+import ImagePicker from 'react-native-image-picker'
 import ActionSheet from 'react-native-actionsheet'
 
 const Item = List.Item
 const native = NativeModules.HttpCache
 const options=['男','女','取消']
+var photoOptions = {
+    //底部弹出框选项
+    title:'请选择',
+    cancelButtonTitle:'取消',
+    takePhotoButtonTitle:'拍照',
+    chooseFromLibraryButtonTitle:'选择相册',
+    quality:0.75,
+    allowsEditing:true,
+    noData:false,
+    storageOptions: {
+        skipBackup: true,
+        path:'images'
+    }
+}
 
 @connect()
 class PersonalData extends Component {
@@ -26,7 +41,7 @@ class PersonalData extends Component {
   constructor(props: any) {
     super(props)
     this.state = {
-      avator:'../images/avator.jpg',
+      avator:require('../images/avator.jpg'),
       nickName:'Rhea',
       gender:'女',
       address:'',
@@ -41,13 +56,26 @@ class PersonalData extends Component {
  showActionSheet = () => {
     this.ActionSheet.show();
   }
+  cameraAction = () =>{
+         ImagePicker.showImagePicker(photoOptions,(response) =>{
+             console.log('response'+response);
+             if (response.didCancel){
+                 return
+             }else{
+              let source = { uri: 'data:image/jpeg;base64,' + response.data }
+              this.setState({
+                avator:source
+              })
+             }
+         })
+    }
 
   render() {
     const { login } = this.props
     return (
       <View style={styles.container}>
         <WhiteSpace />
-        <Item arrow="horizontal" onClick={() => {}}>
+        <Item arrow="horizontal" onClick={this.cameraAction}>
           <View style={styles.listItemText}>
             <View style={{ width: '90%' }}>
               <Text style={styles.listItemTextLeft}>头像</Text>
