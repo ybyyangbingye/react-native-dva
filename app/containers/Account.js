@@ -101,7 +101,7 @@ class Account extends Component {
     ]
 
     const listItems = list.map((listItem, index) => (
-        <View style={{width: '25%',borderBottomColor: '#dedede', borderBottomWidth: 0.5}}>
+        <View style={{width: '25%'}}>
           <TouchableOpacity activeOpacity={1} onPress={() => this.gotoTarget(listItem.targetPage)} style={{height: 110,display: 'flex',justifyContent: 'center', alignItems: 'center'}}>
             <Image source={listItem.iconUrl} style={{width: 30,height: 30}} />
             <Text style={{marginTop: 10, color: '#565656', fontSize: 13}}>{listItem.leftLabel}</Text>
@@ -165,7 +165,7 @@ class Account extends Component {
           <View style={styles.container}>
             <WhiteSpace />
             <View style={{backgroundColor: '#fff'}}>
-              <View style={{paddingHorizontal: 20, paddingVertical: 20, borderBottomWidth: 0.5, borderColor: '#dedede'}}><Text style={{fontSize: 13, color: '#565656'}}>我的服务</Text></View>
+              <View style={{paddingHorizontal: 20, paddingVertical: 20}}><Text style={{fontSize: 13, color: '#565656'}}>我的服务</Text></View>
               <View style={{display: 'flex',flexWrap: 'wrap',flexDirection: 'row'}}>{listItems}</View>
             </View>
           </View>
@@ -182,7 +182,7 @@ const PARALLAX_HEADER_HEIGHT = 250
 const STICKY_HEADER_HEIGHT = 50
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f3f4f6',
+    backgroundColor: '#ffeff0',
   },
   background: {
     position: 'absolute',

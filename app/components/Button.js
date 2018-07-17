@@ -17,12 +17,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#ff2760',
+    borderColor: '#cc7073',
     borderWidth: StyleSheet.hairlineWidth,
   },
   text: {
     fontSize: 16,
-    color: '#ff2760',
+    color: '#cc7073',
   },
 })
 
