@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component,PropTypes } from 'react'
 import { StyleSheet, View, Image, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 
@@ -19,7 +19,8 @@ class Login extends Component {
     hasError: false,
     value: '',
     code:'',
-    codeTime:60
+    codeTime:60,
+    text:'获取验证码'
   }
   onLogin = () => {
     Toast.info("hello");
@@ -59,6 +60,19 @@ class Login extends Component {
       value,
     });
   }
+  ComponentDidMount(){
+    this.interVal = setInterval(()=>{
+      if(codeTime<=0){
+        this.stop();
+      }else{
+        codeTime--;
+        text=codeTime+'s重新发送'
+      }
+    },1000)
+  }
+  stop() {
+     clearInterval(this.interval);
+    }
 
   render() {
     return (
@@ -77,7 +91,7 @@ class Login extends Component {
                 onErrorClick={this.onErrorClick}
                 />
                 </View>
-                <Button text="获取验证码" style={{width:110,marginRight:10}} onPress = {this.getCode} value={this.state.codeTime}/>
+                <Button text={this.state.text} style={{width:110,marginRight:10}} onPress = {this.getCode} value={this.state.codeTime}/>
               </View>
                <View style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
                 <Image  style={styles.textIcon} source={require('../images/code.png')}/>
