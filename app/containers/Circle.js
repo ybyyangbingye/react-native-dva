@@ -18,7 +18,8 @@ import {
 import {
   List,
   Radio,
-  WhiteSpace
+  WhiteSpace,
+  Calendar,
 } from 'antd-mobile-rn'
 import {
   Button
@@ -27,6 +28,8 @@ import {
 import {
   NavigationActions
 } from '../utils'
+import zhCN from 'antd-mobile/lib/calendar/locale/zh_CN';
+
 
 const RadioItem = Radio.RadioItem
 
@@ -89,27 +92,38 @@ class Home extends Component {
     }
   }
 
+
+  renderBtn(zh) {
+    return (
+      <List.Item arrow="horizontal"
+        onClick={() => {
+          document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
+          this.setState({
+            show: true,
+          });
+        }}
+      >
+        {zh}
+      </List.Item>
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
+          <Text style={styles.promptTitle}>填写资料</Text>
+          <Text style={styles.promptText}>花一分钟填写您的资料</Text>
+          <Text style={styles.promptText}>我们可以给您定制专属的内容</Text>
           <Image
-            style={styles.backgroundImage}
+            style={styles.loginImage}
             source={require('../images/head.jpg')}
-          >
-            <Text style={styles.promptTitle}>填写资料</Text>
-            <Text style={styles.promptText}>花一分钟填写您的资料</Text>
-            <Text style={styles.promptText}>我们可以给您定制专属的内容</Text>
-            <Image
-              style={styles.loginImage}
-              source={require('../images/head.jpg')}
-            />
-            <Image
-              style={styles.cameraImage}
-              source={require('../images/camera.png')}
-            />
-            <Text style={styles.promptChange}>修改头像</Text>
-          </Image>
+          />
+          <Image
+            style={styles.cameraImage}
+            source={require('../images/camera.png')}
+          />
+          <Text style={styles.promptChange}>修改头像</Text>
         </View>
         <View style={styles.main}>
           <View style={styles.inputItem}>
@@ -182,6 +196,12 @@ class Home extends Component {
               爸爸
             </RadioItem>
           </View>
+
+          <List className="input-list" style={{ backgroundColor: 'white' }}>
+            <Text style={styles.label}>宝宝小名</Text>
+            {this.renderBtn('选择日期区间')}
+          </List>
+
         </View>
         <View style={styles.bottom}>
           <Button style={styles.startTravel} textStyle={styles.startTravelText}>
@@ -263,7 +283,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 20,
     color: '#222',
-    width: 120,
   },
   userInput: {
     width: 200,
