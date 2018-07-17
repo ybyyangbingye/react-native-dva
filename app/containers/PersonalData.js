@@ -8,12 +8,14 @@ import {
   Platform,
 } from 'react-native'
 import { connect } from 'react-redux'
-import { List, WhiteSpace, ImagePicker, ActionSheet } from 'antd-mobile-rn'
+import { List, WhiteSpace, ImagePicker,InputItem} from 'antd-mobile-rn'
 import { Button } from '../components'
 import { createAction, NavigationActions } from '../utils'
+import ActionSheet from 'react-native-actionsheet'
 
 const Item = List.Item
 const native = NativeModules.HttpCache
+const options=['男','女','取消']
 
 @connect()
 class PersonalData extends Component {
@@ -24,49 +26,21 @@ class PersonalData extends Component {
   constructor(props: any) {
     super(props)
     this.state = {
-      avator: '../images/avator.jpg',
-      nickName: 'Rhea',
-      gender: '女',
-      address: '',
+      avator:'../images/avator.jpg',
+      nickName:'Rhea',
+      gender:'女',
+      address:'',
+      arrow:'horizontal',
+      show:true
     }
   }
 
   componentDidMount() {
     // this.getData();
   }
-
-  gotoLogin = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'Login' }))
+ showActionSheet = () => {
+    this.ActionSheet.show();
   }
-
-  logout = () => {
-    this.props.dispatch(createAction('app/logout')())
-  }
-
-  handleFile2Change = (files2: any) => {
-    this.setState({
-      files2,
-    })
-  }
-
-  getData() {
-    alert(native.getImageCacheSize + native.getHttpCacheSize),
-      this.setState({
-        http: native.getHttpCacheSize,
-        image: native.getImageCacheSize,
-        all: native.getImageCacheSize + native.getHttpCacheSize,
-      })
-  }
-
-  // async clearCache(){
-  //   try {
-  //     await httpCache.clear();
-  //     alert('清除缓存成功');
-  //     await this.getData();
-  //   } catch(err){
-  //     alert('错误', err.message);
-  //   }
-  // }
 
   render() {
     const { login } = this.props
@@ -79,34 +53,58 @@ class PersonalData extends Component {
               <Text style={styles.listItemTextLeft}>头像</Text>
             </View>
             <View style={{ width: '10%', paddingTop: 2 }}>
-              <Image
-                source={require('../images/avator.jpg')}
-                style={styles.avator}
-              />
+              <Image source={require('../images/avator.jpg')} style={styles.avator}/>
             </View>
           </View>
         </Item>
-        <Item arrow="horizontal" onClick={() => {}}>
+        <Item arrow={this.state.arrow} onClick={() => {
+          this.setState({
+            show:false
+          })
+        }}>
           <View style={styles.listItemText}>
-            <View style={{ width: '50%' }}>
+            <View style={{ width: '65%' }}>
               <Text style={styles.listItemTextLeft}>昵称</Text>
             </View>
-            <View style={{ width: '50%', paddingTop: 2 }}>
-              <Text style={styles.listItemTextRight}>
-                ${this.state.nickName}
-              </Text>
+            <View style={{ width: '35%', paddingTop: 2 }}>
+            {
+              this.state.show ==true ? (<Text style={styles.listItemTextRight}>{this.state.nickName}</Text>):( 
+               <InputItem style={{borderBottomWidth:0}} 
+               defaultValue={this.state.nickName}
+               clear
+               onChange={(value) => {this.setState({
+                nickName:value,
+                arrow:''
+               })
+                }}
+                onBlur={()=>{
+                  this.setState({
+                    arrow:'horizontal',
+                    show:true
+                  })
+                }}
+                ></InputItem>
+                )}
             </View>
           </View>
         </Item>
-        <Item arrow="horizontal" onClick={() => {}}>
+        <Item arrow="horizontal" onClick={this.showActionSheet}>
           <View style={styles.listItemText}>
             <View style={{ width: '50%' }}>
               <Text style={styles.listItemTextLeft}>性别</Text>
             </View>
             <View style={{ width: '50%', paddingTop: 2 }}>
-              <Text style={styles.listItemTextRight}>
-                ${this.state.nickName}
-              </Text>
+              <Text style={styles.listItemTextRight}>{this.state.gender}</Text>
+               <ActionSheet ref={o=> this.ActionSheet = o}
+                options={options}
+                cancelButtonIndex={2}
+                onPress = { (index) => {
+                  if(index<2){
+                     this.setState({
+                    gender:options[index]
+                  })
+                  }
+                }}/>
             </View>
           </View>
         </Item>
@@ -122,66 +120,14 @@ class PersonalData extends Component {
           </View>
         </Item>
         <WhiteSpace />
-        <View style={{ marginTop: 30 }}>
-          <View style={{ padding: 8 }}>
-            <Button onClick={this.showActionSheet}>showActionSheet</Button>
-          </View>
-          <Text style={{ padding: 8 }}>
-            clicked button: {this.state.clicked}
-          </Text>
-          <View style={{ padding: 8 }}>
-            <Button onClick={this.showShareActionSheet}>
-              showShareActionSheet
-            </Button>
-          </View>
-          <Text style={{ padding: 8 }}>{this.state.text}</Text>
+        <View style={{ marginTop:30,alignItems:'center' }}>
+            <Button style={{borderRadius:50,width:'40%',backgroundColor:'#cc7073',borderWidth:0}}>
+            <Text style={{color:'#fff'}}>保存</Text></Button>
         </View>
       </View>
     )
   }
 
-  showActionSheet = () => {
-    const BUTTONS = ['男', '女']
-    ActionSheet.showActionSheetWithOptions(
-      {
-        title: 'Title',
-        message: 'Description',
-        options: BUTTONS,
-        cancelButtonIndex: 4,
-        destructiveButtonIndex: 3,
-      },
-      (buttonIndex: any) => {
-        this.setState({ clicked: BUTTONS[buttonIndex] })
-      }
-    )
-  }
-
-  showShareActionSheet = () => {
-    const opts: any = {
-      message: 'Message to go with the shared url',
-      title: 'Share Actionsheet',
-    }
-
-    if (Platform.OS === 'ios') {
-      opts.url = 'https://www.alipay.com/'
-      opts.tintColor = '#ff0000'
-      opts.excludedActivityTypes = ['com.apple.UIKit.activity.PostToTwitter']
-    }
-
-    ActionSheet.showShareActionSheetWithOptions(
-      opts,
-      (error: any) => alert(error),
-      (success: any, method: any) => {
-        let text
-        if (success) {
-          text = `Shared with ${method}`
-        } else {
-          text = 'Did not share'
-        }
-        this.setState({ text })
-      }
-    )
-  }
 }
 
 const styles = StyleSheet.create({
