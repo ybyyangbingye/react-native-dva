@@ -43,7 +43,7 @@ const HomeNavigator = createBottomTabNavigator(
         tabBarLabel: '时光机',
         tabBarIcon: ({ tintColor, focused }) => (
           <Image
-            style={[styles.icon, { tintColor: focused ? tintColor : 'gray' }]}
+            style={[styles.icon, { tintColor: focused ? tintColor : '#ababab' }]}
             source={require('./images/timeMachine.png')}
           />
         ),
@@ -57,7 +57,7 @@ const HomeNavigator = createBottomTabNavigator(
         tabBarLabel: '里程碑',
         tabBarIcon: ({ tintColor, focused }) => (
           <Image
-            style={[styles.icon, { tintColor: focused ? tintColor : 'gray' }]}
+            style={[styles.icon, { tintColor: focused ? tintColor : '#ababab' }]}
             source={require('./images/notes.png')}
           />
         ),
@@ -71,8 +71,8 @@ const HomeNavigator = createBottomTabNavigator(
         tabBarLabel: '宝宝圈',
         tabBarIcon: ({ tintColor, focused }) => (
           <Image
-            style={[styles.icon, { tintColor: focused ? tintColor : 'gray' }]}
-            source={require('./images/AccountGroup.png')}
+            style={[styles.icon, { tintColor: focused ? tintColor : '#ababab' }]}
+            source={require('./images/AccountGroup2.png')}
           />
         ),
       },
@@ -85,7 +85,7 @@ const HomeNavigator = createBottomTabNavigator(
         tabBarLabel: '我的',
         tabBarIcon: ({ tintColor, focused }) => (
           <Image
-            style={[styles.icon, { tintColor: focused ? tintColor : 'gray' }]}
+            style={[styles.icon, { tintColor: focused ? tintColor : '#ababab' }]}
             source={require('./images/account.png')}
           />
         ),

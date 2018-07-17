@@ -31,43 +31,49 @@ class Account extends Component {
         leftLabel: '个人资料',
         rightLabel: '',
         targetPage: 'PersonalData',
-        iconUrl: require('../images/AccountData.png'),
+        iconUrl: require('../images/AccountData3.png'),
       },
       {
         leftLabel: '福利社',
         rightLabel: '积分换好礼',
         targetPage: 'Feedback',
-        iconUrl: require('../images/AccountGift.png'),
+        iconUrl: require('../images/AccountGift3.png'),
       },
       {
         leftLabel: '推荐给好友',
         rightLabel: '领60积分',
         targetPage: 'Feedback',
-        iconUrl: require('../images/AccountRecommend.png'),
+        iconUrl: require('../images/AccountRecommend2.png'),
       },
       {
         leftLabel: '打印商城',
-        rightLabel: '戳我打印宝宝成长记',
+        rightLabel: '宝宝成长记',
         targetPage: 'Feedback',
-        iconUrl: require('../images/AccountPrint.png'),
+        iconUrl: require('../images/AccountPublish2.png'),
       },
       {
         leftLabel: '我的订单',
         rightLabel: '',
         targetPage: 'Feedback',
-        iconUrl: require('../images/AccountOrder.png'),
+        iconUrl: require('../images/AccountOrder2.png'),
       },
       {
         leftLabel: '参与活动',
         rightLabel: '',
         targetPage: 'Feedback',
-        iconUrl: require('../images/AccountActivity.png'),
+        iconUrl: require('../images/AccountActivity3.png'),
       },
       {
         leftLabel: '意见反馈',
         rightLabel: '',
         targetPage: 'Feedback',
-        iconUrl: require('../images/AccountSuggest.png'),
+        iconUrl: require('../images/AccountSuggest2.png'),
+      },
+      {
+        leftLabel: '',
+        rightLabel: '',
+        targetPage: '',
+        iconUrl: '',
       },
     ]
 
@@ -91,40 +97,17 @@ class Account extends Component {
         pancelItemText: '加入的群组',
         iconUrl: require('../images/AccountGroup.png'),
         targetPage: 'MyCollection',
-      },
+      }
     ]
 
     const listItems = list.map((listItem, index) => (
-      <Item
-        arrow="horizontal"
-        key={index}
-        onClick={() => this.gotoTarget(listItem.targetPage)}
-      >
-        <View style={styles.listItemText}>
-          <Image source={listItem.iconUrl} style={styles.listItemIcon} />
-          <View
-            style={{
-              flex: 1,
-              display: 'flex',
-              justifyContent: 'flex-start',
-              flexDirection: 'row',
-            }}
-          >
-            <View style={{ width: '50%' }}>
-              <Text style={styles.listItemTextLeft}>{listItem.leftLabel}</Text>
-            </View>
-            {listItem.rightLabel === '' ? (
-              <View />
-            ) : (
-              <View style={{ width: '50%', paddingTop: 2 }}>
-                <Text style={styles.listItemTextRight}>
-                  {listItem.rightLabel}
-                </Text>
-              </View>
-            )}
-          </View>
+        <View style={{width: '25%',borderBottomColor: '#dedede', borderBottomWidth: 0.5}}>
+          <TouchableOpacity activeOpacity={1} onPress={() => this.gotoTarget(listItem.targetPage)} style={{height: 110,display: 'flex',justifyContent: 'center', alignItems: 'center'}}>
+            <Image source={listItem.iconUrl} style={{width: 30,height: 30}} />
+            <Text style={{marginTop: 10, color: '#565656', fontSize: 13}}>{listItem.leftLabel}</Text>
+            <Text style={{marginTop: 5, fontSize: 10, color: '#a9a9a9'}}>{listItem.rightLabel}</Text>
+          </TouchableOpacity>
         </View>
-      </Item>
     ))
 
     const pancelItems = pancel.map((pancelItem, index) => (
@@ -181,7 +164,10 @@ class Account extends Component {
           <View style={styles.pancel}>{pancelItems}</View>
           <View style={styles.container}>
             <WhiteSpace />
-            <List>{listItems}</List>
+            <View style={{backgroundColor: '#fff'}}>
+              <View style={{paddingHorizontal: 20, paddingVertical: 20, borderBottomWidth: 0.5, borderColor: '#dedede'}}><Text style={{fontSize: 13, color: '#565656'}}>我的服务</Text></View>
+              <View style={{display: 'flex',flexWrap: 'wrap',flexDirection: 'row'}}>{listItems}</View>
+            </View>
           </View>
         </View>
       </ParallaxScrollView>
@@ -192,7 +178,7 @@ const window = Dimensions.get('window')
 
 const AVATAR_SIZE = 120
 const ROW_HEIGHT = 50
-const PARALLAX_HEADER_HEIGHT = 210
+const PARALLAX_HEADER_HEIGHT = 250
 const STICKY_HEADER_HEIGHT = 50
 const styles = StyleSheet.create({
   container: {
@@ -228,7 +214,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     flexDirection: 'column',
-    paddingTop: 35,
+    paddingTop: 60,
   },
   avatar: {
     width: 120,
