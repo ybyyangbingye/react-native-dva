@@ -6,9 +6,10 @@ import {
   Text,
   NativeModules,
   Platform,
+  TextInput
 } from 'react-native'
 import { connect } from 'react-redux'
-import { List, WhiteSpace,InputItem} from 'antd-mobile-rn'
+import { List, WhiteSpace} from 'antd-mobile-rn'
 import { Button } from '../components'
 import { createAction, NavigationActions } from '../utils'
 import ImagePicker from 'react-native-image-picker'
@@ -56,6 +57,12 @@ class PersonalData extends Component {
  showActionSheet = () => {
     this.ActionSheet.show();
   }
+  endEditing=()=>{
+     this.setState({
+      arrow:'horizontal',
+      show:true
+     })
+  }
   cameraAction = () =>{
          ImagePicker.showImagePicker(photoOptions,(response) =>{
              console.log('response'+response);
@@ -90,29 +97,28 @@ class PersonalData extends Component {
             show:false
           })
         }}>
-          <View style={styles.listItemText}>
+          <View style={styles.listItemText} >
             <View style={{ width: '65%' }}>
               <Text style={styles.listItemTextLeft}>昵称</Text>
             </View>
-            <View style={{ width: '35%', paddingTop: 2 }}>
-            {
-              this.state.show ==true ? (<Text style={styles.listItemTextRight}>{this.state.nickName}</Text>):( 
-               <InputItem style={{borderBottomWidth:0}} 
-               defaultValue={this.state.nickName}
-               clear
-               onChange={(value) => {this.setState({
-                nickName:value,
-                arrow:''
-               })
-                }}
-                onBlur={()=>{
-                  this.setState({
-                    arrow:'horizontal',
-                    show:true
-                  })
-                }}
-                ></InputItem>
-                )}
+            <View style={{ width: '35%', paddingTop: 2}}>
+             {
+              this.state.show ==true ? (<Text style={styles.listItemTextRight}>{this.state.nickName}</Text>):(
+                  <TextInput placeholder={this.state.nickName}
+                  placeholderTextColor='#000'
+                  blurOnSubmit={true} 
+                 keyboardType={'default'} // 默认键盘类型
+                 underlineColorAndroid = 'transparent'
+                 onChangeText={(text) => {this.setState({
+                  nickName:text
+                 })
+                 }}
+                onEndEditing={this.endEditing}
+                onSubmitEditing={this.endEditing}
+              >   
+              </TextInput>
+             )}
+            
             </View>
           </View>
         </Item>
