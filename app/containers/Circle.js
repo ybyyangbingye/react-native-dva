@@ -134,12 +134,13 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      babyName: '',
+      babyName: '点击填写',
       babyBirth: '点击填写',
       identity: '妈妈',
       gender:'0',
       avator:require('../images/avator.jpg'),
       isDateTimePickerVisible: false,
+      show: true,
     }
   }
 
@@ -171,6 +172,12 @@ class Home extends Component {
     this.setState({
       gender:value,
     })
+  }
+
+  endEditing=()=>{
+     this.setState({
+      show:true
+     })
   }
 
   _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
@@ -213,14 +220,18 @@ class Home extends Component {
               <View style={{ width: '50%' }}>
                 <Text style={styles.listItemTextLeft}>宝宝小名</Text>
               </View>
-              <View style={{ width: '50%', paddingTop: 2 }}>              
-               <TextInput
-                placeholder="在此输入文字"
-                onChangeText={this.inputName}
-                underlineColorAndroid='transparent'
-                clearButtonMode='while-editing'
-                style={{height: 40, lineHeight: 36, textAlign: 'right', color: '#aaa'}}
-                />
+              <View style={{ width: '50%', paddingTop: 2 }}>                            
+                <TextInput
+                  placeholder={this.state.babyName}
+                  placeholderTextColor='#aaa'
+                  blurOnSubmit={true} 
+                  clearButtonMode='while-editing'
+                  keyboardType={'default'} // 默认键盘类型
+                  underlineColorAndroid = 'transparent'
+                  onChangeText={(text) => {this.setState({babyName:text})}}
+                  style={{ color:'#aaa', textAlign: 'right', }}
+                >   
+                </TextInput>
               </View>
             </View>
           </Item>
