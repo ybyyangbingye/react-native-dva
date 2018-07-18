@@ -18,7 +18,6 @@ import {
   Radio,
   WhiteSpace,
   List,
-  InputItem,
 } from 'antd-mobile-rn'
 import {
   Button
@@ -31,11 +30,26 @@ import {
 import ActionSheet from 'react-native-actionsheet'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import ImagePicker from 'react-native-image-picker'
 
 // const RadioItem = Radio.Item
 const Item = List.Item
 
 const options = ['妈妈','爸爸','取消']
+var photoOptions = {
+  //底部弹出框选项
+  title:'请选择',
+  cancelButtonTitle:'取消',
+  takePhotoButtonTitle:'拍照',
+  chooseFromLibraryButtonTitle:'选择相册',
+  quality:0.75,
+  allowsEditing:true,
+  noData:false,
+  storageOptions: {
+    skipBackup: true,
+    path:'images'
+  }
+}
 
 var radio_props = [
   {label: '男', value: 0 },
@@ -44,48 +58,46 @@ var radio_props = [
 
 @connect()
 
-class DateTimePickerTester extends Component {
-  state = {
-    isDateTimePickerVisible: false,
-    date: '点击填写'
-  };
+// class DateTimePickerTester extends Component {
+//   state = {
+//     isDateTimePickerVisible: false,
+//     date: '点击填写'
+//   };
 
-  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+//   _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
 
-  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+//   _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
-  _handleDatePicked = (date) => {
-    console.log(date)
-    this.setState({
-      date: date.toLocaleDateString(),
-    })
-    console.log('A date has been picked: ', date);
-    this._hideDateTimePicker();
-  };
+//   _handleDatePicked = (date) => {
+//     console.log(date)
+//     this.setState({
+//       date: date.toLocaleDateString(),
+//     })
+//     console.log('A date has been picked: ', date);
+//     this._hideDateTimePicker();
+//   };
 
-  render () {
-    return (
-      <View style={{ flex: 1 }}>
-        <TouchableOpacity onPress={this._showDateTimePicker} >
-          <Text style={{ textAlign: 'right' }}>{this.state.date}</Text>
-        </TouchableOpacity>
-        <DateTimePicker
-          isVisible={this.state.isDateTimePickerVisible}
-          onConfirm={this._handleDatePicked}
-          onCancel={this._hideDateTimePicker}
-        />
-      </View>
-    );
-  }
+//   render () {
+//     return (
+//       <View style={{ flex: 1 }}>
+//         <TouchableOpacity onPress={this._showDateTimePicker} >
+//           <Text style={{ textAlign: 'right', color: '#aaa', }}>{this.state.date}</Text>
+//         </TouchableOpacity>
+//         <DateTimePicker
+//           isVisible={this.state.isDateTimePickerVisible}
+//           onConfirm={this._handleDatePicked}
+//           onConfirm={this.props.inputBirth}
+//           onCancel={this._hideDateTimePicker}
+//         />
+//       </View>
+//     );
+//   }
 
-}
+// }
 
 class RadioButtonProject extends Component {
    constructor(props) {
     super(props)
-    this.state = {
-      gender:1,
-    }
   }
   render() {
     return (
@@ -96,9 +108,10 @@ class RadioButtonProject extends Component {
         labelHorizontal={true}
         buttonColor={'#2196f3'}
         animation={true}
-        buttonSize={10}
+        buttonSize={8}
         labelStyle={{fontSize: 14, color: '#aaa', marginRight: 10,}}
-        onPress={(value) => {this.setState({gender:value})}}
+        // onPress={(value) => {this.setState({gender:value})}}
+        onPress={this.props.inputGender}
       />
     );
   }
@@ -122,9 +135,11 @@ class Home extends Component {
     super(props)
     this.state = {
       babyName: '',
-      babyBirth: '',
+      babyBirth: '点击填写',
       identity: '妈妈',
-      gender:'女',
+      gender:'0',
+      avator:require('../images/avator.jpg'),
+      isDateTimePickerVisible: false,
     }
   }
 
@@ -132,47 +147,101 @@ class Home extends Component {
     this.ActionSheet.show();
   }
 
+  cameraAction = () =>{
+    ImagePicker.showImagePicker(photoOptions,(response) =>{
+      console.log('response'+response);
+      if (response.didCancel){
+        return
+      }else{
+        let source = { uri: 'data:image/jpeg;base64,' + response.data }
+        this.setState({
+          avator:source
+        })
+      }
+   })
+  }
+
+  inputName = (name) => {
+    this.setState({
+      babyName: name,
+    })
+  }
+
+  inputGender = (value) => {
+    this.setState({
+      gender:value,
+    })
+  }
+
+  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+
+  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+
+  _handleDatePicked = (date) => {
+    console.log(date)
+    this.setState({
+      babyBirth: date.toLocaleDateString(),
+    })
+    this._hideDateTimePicker();
+  };
+
   render() {
     return (
       <ScrollView style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.promptTitle}>填写资料</Text>
           <Text style={styles.promptText}>花一分钟填写您的资料</Text>
-          <Text style={styles.promptText}>我们可以给您定制专属的内容</Text>         
-          <View style={styles.headImage}>
-            <Image
-              style={styles.loginImage}
-              source={require('../images/head.jpg')}
-            />
-            <Image
-              style={styles.cameraImage}
-              source={require('../images/camera.png')}
-            />            
-          </View>
+          <Text style={styles.promptText}>我们可以给您定制专属的内容</Text>
+          <TouchableOpacity onPress={this.cameraAction}>         
+            <View style={styles.headImage}>
+              <Image
+                style={styles.loginImage}
+                source={this.state.avator}
+              />
+              <Image
+                style={styles.cameraImage}
+                source={require('../images/camera.png')}
+              />            
+            </View>
+          </TouchableOpacity>
           <Text style={styles.promptChange}>修改头像</Text>
         </View>
-        <View style={styles.main}>
 
+        <View style={styles.main}>
           <Item arrow="horizontal">
             <View style={styles.listItemText}>
               <View style={{ width: '50%' }}>
                 <Text style={styles.listItemTextLeft}>宝宝小名</Text>
               </View>
-              <View style={{ width: '50%', paddingTop: 2 }}>
-                <InputItem style={{borderBottomWidth:0}} 
-                  placeholder='点击填写'
-                  ></InputItem>
+              <View style={{ width: '50%', paddingTop: 2 }}>              
+               <TextInput
+                placeholder="在此输入文字"
+                onChangeText={this.inputName}
+                underlineColorAndroid='transparent'
+                clearButtonMode='while-editing'
+                style={{height: 40, lineHeight: 36, textAlign: 'right', color: '#aaa'}}
+                />
               </View>
             </View>
           </Item>
+          <WhiteSpace />
 
           <Item arrow="horizontal">
             <View style={styles.listItemText}>
               <View style={{ width: '50%' }}>
                 <Text style={styles.listItemTextLeft}>生日</Text>
               </View>
-              <View style={{ width: '50%', paddingTop: 2, }}>
-                <DateTimePickerTester />
+              <View style={{ width: '50%', paddingTop: 12, }}>
+                <View style={{ flex: 1 }}>
+                  <TouchableOpacity onPress={this._showDateTimePicker} >
+                    <Text style={{ textAlign: 'right', color: '#aaa', }}>{this.state.babyBirth}</Text>
+                  </TouchableOpacity>
+                  <DateTimePicker
+                    isVisible={this.state.isDateTimePickerVisible}
+                    onConfirm={this._handleDatePicked}
+                    onCancel={this._hideDateTimePicker}
+                  />
+                </View>
               </View>
             </View>
           </Item>
@@ -183,8 +252,8 @@ class Home extends Component {
               <View style={{ width: '50%' }}>
                 <Text style={styles.listItemTextLeft}>性别</Text>
               </View>
-              <View style={{ width: '50%', paddingTop: 2,  alignItems: 'flex-end', }}>
-                <RadioButtonProject style={styles.listItemTextRight} />
+              <View style={{ width: '50%', paddingTop: 8,  alignItems: 'flex-end', }}>
+                <RadioButtonProject style={styles.listItemTextRight} inputGender={this.inputGender.bind(this)} />
               </View>
             </View>
           </Item>
@@ -213,6 +282,7 @@ class Home extends Component {
           <WhiteSpace />
 
         </View>
+
         <View style={styles.bottom}>
           <Button style={styles.startTravel} textStyle={styles.startTravelText}>
             开启成长之旅
@@ -232,8 +302,9 @@ const styles = StyleSheet.create({
     flex: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 220,
     position: 'relative',
+    marginTop: 30,
+    marginBottom: 10,
   },
   headImage: {
     position: 'relative',
@@ -253,8 +324,8 @@ const styles = StyleSheet.create({
   },
   loginImage: {
     marginTop: 6,
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     borderRadius: 50,
   },
   cameraImage: {
@@ -272,24 +343,24 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    height: 200,
-    margin: 20,
   },
   // 列表样式
   listItemText: {
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     flexDirection: 'row',
+    height: 40,
   },
   listItemTextLeft: {
     fontSize: 14,
     paddingLeft: 10,
+    lineHeight: 40,
   },
   listItemTextRight: {
     color: '#aaa',
     fontSize: 14,
-    marginRight: 2,
     textAlign: 'right',
+    lineHeight: 38,
   },
   label: {
     fontSize: 16,
