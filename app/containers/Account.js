@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import LinearGradient from 'react-native-linear-gradient'
 import {
   StyleSheet,
   View,
