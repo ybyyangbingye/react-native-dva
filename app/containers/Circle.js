@@ -239,10 +239,10 @@ class Home extends Component {
 
           <Item arrow="horizontal">
             <View style={styles.listItemText}>
-              <View style={{ width: '50%' }}>
+              <View style={{ width: '20%' }}>
                 <Text style={styles.listItemTextLeft}>生日</Text>
               </View>
-              <View style={{ width: '50%', paddingTop: 12, }}>
+              <View style={{ width: '80%', paddingTop: 12, }}>
                 <View style={{ flex: 1 }}>
                   <TouchableOpacity onPress={this._showDateTimePicker} >
                     <Text style={{ textAlign: 'right', color: '#aaa', }}>{this.state.babyBirth}</Text>
