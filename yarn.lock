@@ -1731,33 +1731,9 @@ color-convert@^1.9.0:
   dependencies:
     color-name "^1.1.1"
 
-color-convert@^1.9.1:
-  version "1.9.2"
-  resolved "http://registry.npm.taobao.org/color-convert/download/color-convert-1.9.2.tgz#49881b8fba67df12a96bdf3f56c0aab9e7913147"
-  dependencies:
-    color-name "1.1.1"
-
-color-name@1.1.1:
-  version "1.1.1"
-  resolved "http://registry.npm.taobao.org/color-name/download/color-name-1.1.1.tgz#4b1415304cf50028ea81643643bd82ea05803689"
-
-color-name@^1.0.0, color-name@^1.1.1:
+color-name@^1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
-
-color-string@^1.5.2:
-  version "1.5.2"
-  resolved "http://registry.npm.taobao.org/color-string/download/color-string-1.5.2.tgz#26e45814bc3c9a7cbd6751648a41434514a773a9"
-  dependencies:
-    color-name "^1.0.0"
-    simple-swizzle "^0.2.2"
-
-color@^2.0.1:
-  version "2.0.1"
-  resolved "http://registry.npm.taobao.org/color/download/color-2.0.1.tgz#e4ed78a3c4603d0891eba5430b04b86314f4c839"
-  dependencies:
-    color-convert "^1.9.1"
-    color-string "^1.5.2"
 
 combined-stream@^1.0.5, combined-stream@~1.0.5:
   version "1.0.5"
@@ -2119,12 +2095,6 @@ ecc-jsbn@~0.1.1:
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.1.tgz#0fc73a9ed5f0d53c38193398523ef7e543777505"
   dependencies:
     jsbn "~0.1.0"
-
-echarts@3.2.3:
-  version "3.2.3"
-  resolved "http://registry.npm.taobao.org/echarts/download/echarts-3.2.3.tgz#4f01e15bfda3352fcd8ef9049f13d8448971a258"
-  dependencies:
-    zrender "^3.1.3"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -3228,10 +3198,6 @@ is-arrayish@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/is-arrayish/-/is-arrayish-0.2.1.tgz#77c99840527aa8ecb1a8ba697b80645a7a926a9d"
 
-is-arrayish@^0.3.1:
-  version "0.3.2"
-  resolved "http://registry.npm.taobao.org/is-arrayish/download/is-arrayish-0.3.2.tgz#4574a2ae56f7ab206896fb431eaeed066fdf8f03"
-
 is-buffer@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
@@ -4151,10 +4117,6 @@ lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lo
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
-lodash@^4.16.6:
-  version "4.17.10"
-  resolved "http://registry.npm.taobao.org/lodash/download/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
-
 lodash@^4.17.5:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
@@ -4499,12 +4461,6 @@ nanomatch@^1.2.9:
     regex-not "^1.0.0"
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
-
-native-echarts@^0.4.0:
-  version "0.4.0"
-  resolved "http://registry.npm.taobao.org/native-echarts/download/native-echarts-0.4.0.tgz#cb7f38fb6e6c2d1cd3f11a27e94ef74092b4bd38"
-  dependencies:
-    echarts "3.2.3"
 
 natural-compare@^1.4.0:
   version "1.4.0"
@@ -5168,13 +5124,6 @@ react-native-camera-roll-picker@^1.2.1:
   version "1.2.3"
   resolved "http://rnpm.hz.netease.com/react-native-camera-roll-picker/download/react-native-camera-roll-picker-1.2.3.tgz#b117fd3a2b9012dcccee1261a9bc427226b8d6d2"
 
-react-native-circular-progress@^1.0.0:
-  version "1.0.0"
-  resolved "http://registry.npm.taobao.org/react-native-circular-progress/download/react-native-circular-progress-1.0.0.tgz#fd68cdc1e34b07f59b5b89af35f98cd46277319e"
-  dependencies:
-    prop-types "^15.6.0"
-    react-native-svg "^6.3.1"
-
 react-native-collapsible@^0.9.0:
   version "0.9.0"
   resolved "http://rnpm.hz.netease.com/react-native-collapsible/download/react-native-collapsible-0.9.0.tgz#207849faa15493820d19fa6a5e58f7c7b6c1b910"
@@ -5197,9 +5146,15 @@ react-native-drawer-layout@1.3.2, react-native-drawer-layout@~1.3.0:
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
 
-react-native-image-picker@^0.26.10:
-  version "0.26.10"
-  resolved "http://registry.npm.taobao.org/react-native-image-picker/download/react-native-image-picker-0.26.10.tgz#0bb9ab928984948c67aee0b9e64216bee007a9fc"
+react-native-http-cache@^0.2.0:
+  version "0.2.0"
+  resolved "http://registry.npm.taobao.org/react-native-http-cache/download/react-native-http-cache-0.2.0.tgz#1796ef5a2bbad845a066338f6f8d96a591e421e3"
+
+react-native-linear-gradient@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.4.0.tgz#51d8ea12bb72a59bede9edc87b694b16b64cf435"
+  dependencies:
+    prop-types "^15.5.10"
 
 react-native-menu@^0.23.0:
   version "0.23.0"
@@ -5249,14 +5204,6 @@ react-native-simple-radio-button@^2.7.2:
   version "2.7.2"
   resolved "http://registry.npm.taobao.org/react-native-simple-radio-button/download/react-native-simple-radio-button-2.7.2.tgz#295a7baf8b36295e36778a58b75cacf6a53d48df"
 
-react-native-svg@^6.3.1, react-native-svg@^6.4.1:
-  version "6.4.1"
-  resolved "http://registry.npm.taobao.org/react-native-svg/download/react-native-svg-6.4.1.tgz#ba696d4da03000883d65a27d2bf8b1a30b252ffe"
-  dependencies:
-    color "^2.0.1"
-    lodash "^4.16.6"
-    pegjs "^0.10.0"
-
 react-native-swipeout@^2.2.2:
   version "2.3.3"
   resolved "http://rnpm.hz.netease.com/react-native-swipeout/download/react-native-swipeout-2.3.3.tgz#3b99db845ef75f0bfa467f1d8de0b7f7946326bd"
@@ -5264,12 +5211,6 @@ react-native-swipeout@^2.2.2:
     create-react-class "^15.6.0"
     prop-types "^15.5.10"
     react-tween-state "^0.1.5"
-
-react-native-swiper@^1.5.13:
-  version "1.5.13"
-  resolved "http://registry.npm.taobao.org/react-native-swiper/download/react-native-swiper-1.5.13.tgz#fa695cd4ab77b9a9df2d2bfee38ea7274dd07a2e"
-  dependencies:
-    prop-types "^15.5.10"
 
 react-native-tab-view@^0.0.77:
   version "0.0.77"
@@ -5434,9 +5375,9 @@ react-tween-state@^0.1.5:
     raf "^3.1.0"
     tween-functions "^1.0.1"
 
-react@16.0.0:
-  version "16.0.0"
-  resolved "http://registry.npm.taobao.org/react/download/react-16.0.0.tgz#ce7df8f1941b036f02b2cca9dbd0cb1f0e855e2d"
+react@^16.4.1:
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.4.1.tgz#de51ba5764b5dbcd1f9079037b862bd26b82fe32"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -6052,12 +5993,6 @@ simple-plist@^0.2.1:
     bplist-creator "0.0.7"
     bplist-parser "0.1.1"
     plist "2.0.1"
-
-simple-swizzle@^0.2.2:
-  version "0.2.2"
-  resolved "http://registry.npm.taobao.org/simple-swizzle/download/simple-swizzle-0.2.2.tgz#a4da6b635ffcccca33f70d17cb92592de95e557a"
-  dependencies:
-    is-arrayish "^0.3.1"
 
 slash@^1.0.0:
   version "1.0.0"
@@ -6859,10 +6794,6 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
-
-zrender@^3.1.3:
-  version "3.7.4"
-  resolved "http://registry.npm.taobao.org/zrender/download/zrender-3.7.4.tgz#f847d53948481ef6d42906d1ea9aeec7acbefdf2"
 
 zscroller@~0.4.0:
   version "0.4.7"

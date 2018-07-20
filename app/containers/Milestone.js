@@ -9,7 +9,7 @@ import { NavigationActions } from '../utils'
 @connect()
 class Home extends Component {
   gotoDetail = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'Login' }))
+    this.props.dispatch(NavigationActions.navigate({ routeName: 'Detail' }))
   }
 
   render() {
