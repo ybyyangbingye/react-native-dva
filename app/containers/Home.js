@@ -9,13 +9,13 @@ import { NavigationActions } from '../utils'
 @connect()
 class Home extends Component {
   gotoDetail = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'Detail' }))
+    this.props.dispatch.Navigation.navigate('Login')
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Button>Start</Button>
+        <Button onPress={this.gotoDetail}>Start</Button>
       </View>
     )
   }

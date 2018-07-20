@@ -16,20 +16,28 @@ import ImagePicker from 'react-native-image-picker'
 import ActionSheet from 'react-native-actionsheet'
 
 const Item = List.Item
-const native = NativeModules.HttpCache
 const options=['男','女','取消']
+let fileName
+
+
 var photoOptions = {
     //底部弹出框选项
     title:'请选择',
     cancelButtonTitle:'取消',
     takePhotoButtonTitle:'拍照',
     chooseFromLibraryButtonTitle:'选择相册',
-    quality:0.75,
-    allowsEditing:true,
-    noData:false,
-    storageOptions: {
-        skipBackup: true,
-        path:'images'
+    cameraType: 'back',
+  mediaType: 'photo',
+  videoQuality: 'high',
+  durationLimit: 10,
+  maxWidth: 300,
+  maxHeight: 300,
+  quality: 0.5,
+  angle: 0,
+  allowsEditing: false,
+  noData: false,
+  storageOptions: {
+        skipBackup: true
     }
 }
 
@@ -64,18 +72,52 @@ class PersonalData extends Component {
      })
   }
   cameraAction = () =>{
-         ImagePicker.showImagePicker(photoOptions,(response) =>{
-             console.log('response'+response);
-             if (response.didCancel){
-                 return
-             }else{
-              let source = { uri: 'data:image/jpeg;base64,' + response.data }
-              this.setState({
-                avator:source
-              })
-             }
-         })
+    ImagePicker.showImagePicker(options, (response) => {
+      //console.log('Response = ', response)
+
+      if (response.didCancel) {
+        console.log('User cancelled photo picker')
+      }
+      else if (response.error) {
+        alert('ImagePicker Error: ', response.error)
+      }
+      else {
+        let source = { uri: response.uri }
+        fileName = response.fileName||'未命名文件.jpg'
+        this.setState({
+          avator: source
+        });
+      }
+    });
     }
+
+    submitData = () =>{
+    let formdata = new FormData();
+    formdata.append('userName',this.state.nickName)
+    formdata.append('phone','18358220978')
+    formdata.append('address','')
+    formdata.append('imgUrl',{
+      uri:this.state.avator.uri,
+      type: 'image/jpeg',
+      name:fileName
+    })
+      const init = {
+        method: 'POST',
+        body:formdata
+      }
+      //alert(formData);
+      fetch('http://10.240.34.232:8080/user/insert', init)
+        .then((response) => response.json())
+        .then((Json) => {
+          // Json = JSON.stringify(Json);
+          // if(Json.code == "200")  {
+          //    alert('access')
+          // }
+          alert(Json)
+        })
+        .catch(e => {alert(`error ${e}`)});
+    }
+
 
   render() {
     const { login } = this.props
@@ -106,7 +148,7 @@ class PersonalData extends Component {
               this.state.show ==true ? (<Text style={styles.listItemTextRight}>{this.state.nickName}</Text>):(
                   <TextInput placeholder={this.state.nickName}
                   placeholderTextColor='#000'
-                  blurOnSubmit={true} 
+                  blurOnSubmit={true}
                  keyboardType={'default'} // 默认键盘类型
                  underlineColorAndroid = 'transparent'
                  onChangeText={(text) => {this.setState({
@@ -115,10 +157,10 @@ class PersonalData extends Component {
                  }}
                 onEndEditing={this.endEditing}
                 onSubmitEditing={this.endEditing}
-              >   
+              >
               </TextInput>
              )}
-            
+
             </View>
           </View>
         </Item>
@@ -154,8 +196,8 @@ class PersonalData extends Component {
           </View>
         </Item>
         <WhiteSpace />
-        <View style={{ marginTop:30,alignItems:'center' }}>
-            <Button style={{borderRadius:50,width:'40%',backgroundColor:'#cc7073',borderWidth:0}}>
+        <View style={{ marginTop:30,alignItems:'center' }} >
+            <Button style={{borderRadius:50,width:'40%',backgroundColor:'#cc7073',borderWidth:0}} onPress={this.submitData}>
             <Text style={{color:'#fff'}}>保存</Text></Button>
         </View>
       </View>
