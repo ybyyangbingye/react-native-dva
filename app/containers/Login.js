@@ -36,14 +36,13 @@ class Login extends Component {
     this.props.dispatch(NavigationActions.back())
   }
 
-/*  let phoneReg = '/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/'*/
   getCode=(value)=>{
     let val = this.state.value.replace(/\s/g, '');
     const phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/;
     if(!phoneReg.test(val)){
       Toast.info("请输入合法的电话号码");
     }else{
-      
+
     }
   }
   onChange = (value) => {
@@ -66,7 +65,9 @@ class Login extends Component {
         this.stop();
       }else{
         codeTime--;
-        text=codeTime+'s重新发送'
+        this.setState({
+          text:codeTime+'s重新发送'
+        })
       }
     },1000)
   }
@@ -82,9 +83,9 @@ class Login extends Component {
               <View style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
                 <Image  style={styles.textIcon} source={require('../images/iphone.png')}/>
                 <View style={{flex:1}}>
-                <InputItem  
-                placeholder="请输入11位手机号码" 
-                type="phone" 
+                <InputItem
+                placeholder="请输入11位手机号码"
+                type="phone"
                 value={this.state.value}
                 onChange = {this.onChange}
                 error={this.state.hasError}
@@ -102,13 +103,6 @@ class Login extends Component {
            </List>
            <Button text="登录" onPress={this.onLogin} style={styles.button}/>
         </View>
-       {/* <Touchable style={styles.close} onPress={this.onClose}>
-          <Image
-             style={styles.icon}
-             source={require('../images/close.png')}
-            />
-        </Touchable>*/}
-        
     </ScrollView>
     )
   }
@@ -132,7 +126,7 @@ class Login extends Component {
     textIcon:{
       width:20,
       height:20,
-      margin:20 
+      margin:20
     },
     button:{
       borderRadius:20,
