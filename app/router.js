@@ -94,7 +94,7 @@ const HomeNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      activeTintColor: '#ff7e83',
+      activeTintColor: '#cc7073',
       inactiveTintColor: '#999',
       style: {
         borderTopColor: '#ebebeb',
