@@ -33,13 +33,10 @@ import FeedbackFillin from './containers/FeedbackFillin'
 import PersonalData from './containers/PersonalData'
 import MyCollection from './containers/MyCollection'
 
-import growthRecord from './modules/growthRecord/growthRecord'
-
-
 const HomeNavigator = createBottomTabNavigator(
   {
     Home: {
-      screen: growthRecord,
+      screen: Home,
       navigationOptions: {
         tabBarPosition: 'bottom',
         showLabel: false,
