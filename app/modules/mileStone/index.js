@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Image } from 'react-native'
 import { connect } from 'react-redux'
 
-import { Button } from '../components'
+import { Button } from '../../components'
 
-import { NavigationActions } from '../utils'
+import { NavigationActions } from '../../utils'
 
 @connect()
 class Home extends Component {
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
 })
 
 export default Home
-	
+
