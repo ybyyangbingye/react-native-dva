@@ -25,7 +25,7 @@ import Loading from './containers/Loading'
 import Login from './containers/Login'
 import Home from './containers/Home'
 import Circle from './containers/Circle'
-import Milestone from './modules/Milestone/index'
+import Milestone from './modules/mileStone/index'
 import Account from './containers/Account'
 import Detail from './containers/Detail'
 import Feedback from './containers/Feedback'
@@ -33,10 +33,13 @@ import FeedbackFillin from './containers/FeedbackFillin'
 import PersonalData from './containers/PersonalData'
 import MyCollection from './containers/MyCollection'
 
+import growthRecord from './modules/growthRecord/growthRecord'
+
+
 const HomeNavigator = createBottomTabNavigator(
   {
     Home: {
-      screen: Home,
+      screen: growthRecord,
       navigationOptions: {
         tabBarPosition: 'bottom',
         showLabel: false,
