@@ -33,14 +33,16 @@ import FeedbackFillin from './containers/FeedbackFillin'
 import PersonalData from './containers/PersonalData'
 import MyCollection from './containers/MyCollection'
 
+import growthRecord from './modules/growthRecord/growthRecord'
+
 const HomeNavigator = createBottomTabNavigator(
   {
     Home: {
-      screen: Home,
+      screen: growthRecord,
       navigationOptions: {
         tabBarPosition: 'bottom',
         showLabel: false,
-        tabBarLabel: '时光机',
+        tabBarLabel: '成长记',
         tabBarIcon: ({ tintColor, focused }) => (
           <Image
             style={[styles.icon, { tintColor: focused ? tintColor : '#ababab' }]}
@@ -94,7 +96,7 @@ const HomeNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      activeTintColor: '#cc7073',
+      activeTintColor: '#f18b8b',
       inactiveTintColor: '#999',
       style: {
         borderTopColor: '#ebebeb',
@@ -123,6 +125,7 @@ const MainNavigator = createStackNavigator(
         headerTitleStyle: { color: 'rgba(0,0,0,0)' },
       },
     },
+    growthRecord: { screen: growthRecord },
     Detail: { screen: Detail },
     Feedback: { screen: Feedback },
     FeedbackFillin: { screen: FeedbackFillin },

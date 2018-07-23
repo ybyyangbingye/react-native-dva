@@ -3,6 +3,8 @@ import { StyleSheet, Text } from 'react-native'
 
 import Touchable from './Touchable'
 
+import colorMatch from '../common/colorMatch'
+
 export const Button = ({ text, children, style, textStyle, ...rest }) => (
   <Touchable style={[styles.button, style]} {...rest}>
     <Text style={[styles.text, textStyle]}>{text || children}</Text>
@@ -17,12 +19,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#cc7073',
+    borderColor: colorMatch.mainColor,
     borderWidth: StyleSheet.hairlineWidth,
   },
   text: {
     fontSize: 16,
-    color: '#cc7073',
+    color: colorMatch.mainColor,
   },
 })
 
