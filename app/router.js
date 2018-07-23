@@ -25,7 +25,7 @@ import Loading from './containers/Loading'
 import Login from './containers/Login'
 import Home from './containers/Home'
 import Circle from './containers/Circle'
-import Milestone from './containers/Milestone'
+import Milestone from './modules/Milestone/index'
 import Account from './containers/Account'
 import Detail from './containers/Detail'
 import Feedback from './containers/Feedback'
@@ -33,16 +33,14 @@ import FeedbackFillin from './containers/FeedbackFillin'
 import PersonalData from './containers/PersonalData'
 import MyCollection from './containers/MyCollection'
 
-import growthRecord from './modules/growthRecord/growthRecord'
-
 const HomeNavigator = createBottomTabNavigator(
   {
     Home: {
-      screen: growthRecord,
+      screen: Home,
       navigationOptions: {
         tabBarPosition: 'bottom',
         showLabel: false,
-        tabBarLabel: '成长记',
+        tabBarLabel: '时光机',
         tabBarIcon: ({ tintColor, focused }) => (
           <Image
             style={[styles.icon, { tintColor: focused ? tintColor : '#ababab' }]}
@@ -96,7 +94,7 @@ const HomeNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      activeTintColor: '#f18b8b',
+      activeTintColor: '#cc7073',
       inactiveTintColor: '#999',
       style: {
         borderTopColor: '#ebebeb',
@@ -125,7 +123,6 @@ const MainNavigator = createStackNavigator(
         headerTitleStyle: { color: 'rgba(0,0,0,0)' },
       },
     },
-    growthRecord: { screen: growthRecord },
     Detail: { screen: Detail },
     Feedback: { screen: Feedback },
     FeedbackFillin: { screen: FeedbackFillin },
